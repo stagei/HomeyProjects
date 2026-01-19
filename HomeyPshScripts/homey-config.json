@@ -1,0 +1,12 @@
+{
+  "homeys": {
+    "Home": {
+      "ip": "",
+      "name": "Homey Hjemme",
+      "cloudId": "",
+      "model": "",
+      "version": "",
+      "lastExport": null
+    }
+  }
+}

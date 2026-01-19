@@ -5,18 +5,24 @@
 .DESCRIPTION
     This script connects to your Homey device(s) using the Local API and exports
     all configuration data to JSON files for reference and backup.
+    
+    Exports are saved to: .\_hubExport\<username>\<HomeyAlias>\
 
-.PARAMETER HomeyName
-    A friendly name for the Homey (e.g., "Home", "Cabin")
+.PARAMETER HomeyAlias
+    The alias/nickname for the Homey hub (e.g., "Home", "Cabin")
 
 .PARAMETER HomeyIP
-    The IP address of the Homey device
+    The IP address of the Homey device (optional if already in config)
 
 .PARAMETER ApiKey
-    The API key generated from Homey Settings -> API Keys
+    The API key (optional if already stored securely)
+
+.PARAMETER SaveCredentials
+    Save the provided API key securely for future use
 
 .EXAMPLE
-    .\Export-Homey.ps1 -HomeyName "Home" -HomeyIP "192.168.1.100" -ApiKey "your-api-key"
+    .\Export-Homey.ps1 -HomeyAlias "Home"
+    .\Export-Homey.ps1 -HomeyAlias "Home" -HomeyIP "192.168.1.100" -ApiKey "your-key" -SaveCredentials
 
 .NOTES
     Prerequisites:
@@ -28,22 +34,32 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $false)]
-    [string]$HomeyName,
+    [string]$HomeyAlias = "Home",
 
     [Parameter(Mandatory = $false)]
     [string]$HomeyIP,
 
     [Parameter(Mandatory = $false)]
-    [string]$ApiKey
+    [string]$ApiKey,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$SaveCredentials,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$ListHubs
 )
 
 # Use TLS 1.2
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
+# Import configuration module from parent directory
+$script:RootPath = Split-Path -Parent $PSScriptRoot
+Import-Module (Join-Path $script:RootPath "HomeyConfig.psm1") -Force
+
 function Write-Banner {
     Write-Host ""
     Write-Host "╔════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║        HOMEY EXPORT TOOL v1.0.0            ║" -ForegroundColor Cyan
+    Write-Host "║        HOMEY EXPORT TOOL v2.0.0            ║" -ForegroundColor Cyan
     Write-Host "╚════════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -74,14 +90,14 @@ function Invoke-HomeyApi {
 
 function Export-HomeyData {
     param(
-        [string]$Name,
+        [string]$Alias,
         [string]$IP,
         [string]$Token
     )
     
     $baseUrl = "http://$($IP)"
     
-    Write-Host "`n📦 Exporting data from: $Name" -ForegroundColor Green
+    Write-Host "`n📦 Exporting data from: $Alias" -ForegroundColor Green
     Write-Host "   Address: $baseUrl" -ForegroundColor DarkGray
     
     # Test connection first
@@ -98,19 +114,26 @@ function Export-HomeyData {
     
     Write-Host "  ✅ Connected!" -ForegroundColor Green
     
+    # Update hub config with system info
+    Set-HomeyHub -Alias $Alias -IP $IP `
+        -Name $systemInfo.name `
+        -Model $systemInfo.model `
+        -Version $systemInfo.homeyVersion `
+        -CloudId $systemInfo.cloudId | Out-Null
+    
     $exportData = @{
-        exportedAt   = (Get-Date).ToString("o")
-        homeyName    = $Name
-        homeyIP      = $IP
-        system       = $null
-        zones        = $null
-        devices      = $null
-        flows        = $null
+        exportedAt    = (Get-Date).ToString("o")
+        homeyAlias    = $Alias
+        homeyIP       = $IP
+        system        = $null
+        zones         = $null
+        devices       = $null
+        flows         = $null
         advancedFlows = $null
-        apps         = $null
-        variables    = $null
-        insights     = $null
-        users        = $null
+        apps          = $null
+        variables     = $null
+        insights      = $null
+        users         = $null
         notifications = $null
     }
     
@@ -118,7 +141,8 @@ function Export-HomeyData {
     Write-Host "  ➤ Fetching system info..." -ForegroundColor Yellow
     $exportData.system = $systemInfo
     if ($systemInfo) {
-        Write-Host "    Homey version: $($systemInfo.homeyVersion)" -ForegroundColor DarkGray
+        Write-Host "    Homey: $($systemInfo.name)" -ForegroundColor DarkGray
+        Write-Host "    Version: $($systemInfo.homeyVersion)" -ForegroundColor DarkGray
         Write-Host "    Model: $($systemInfo.model)" -ForegroundColor DarkGray
     }
     
@@ -205,49 +229,28 @@ function Export-HomeyData {
 function Save-ExportData {
     param(
         [object]$Data,
-        [string]$Name
+        [string]$Alias
     )
     
-    $exportsDir = Join-Path $PSScriptRoot "exports"
-    if (-not (Test-Path $exportsDir)) {
-        New-Item -ItemType Directory -Path $exportsDir -Force | Out-Null
-    }
+    # Get export path: .\_hubExport\<username>\<Alias>\
+    $exportDir = Get-HomeyExportPath -HomeyAlias $Alias
     
     $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
-    $safeName = $Name -replace '[^a-zA-Z0-9]', '_'
-    $filename = "$($safeName)_$($timestamp).json"
-    $filepath = Join-Path $exportsDir $filename
+    $filename = "export_$($timestamp).json"
+    $filepath = Join-Path $exportDir $filename
     
     $Data | ConvertTo-Json -Depth 20 | Set-Content -Path $filepath -Encoding UTF8
     
     Write-Host "`n✅ Saved to: $filepath" -ForegroundColor Green
     
-    return $filepath
-}
-
-function Get-HomeyCredentials {
-    $creds = @()
-    $continue = $true
-    
-    while ($continue) {
-        Write-Host "`n🏠 Enter Homey Details" -ForegroundColor Cyan
-        Write-Host "─────────────────────────────────────────" -ForegroundColor DarkGray
-        
-        $name = Read-Host "  Homey Name (e.g., 'Home' or 'Cabin')"
-        $ip = Read-Host "  Homey IP Address (e.g., 192.168.1.100)"
-        $key = Read-Host "  API Key"
-        
-        $creds += @{
-            Name   = $name
-            IP     = $ip
-            ApiKey = $key
-        }
-        
-        $another = Read-Host "`n  Add another Homey? (y/n)"
-        $continue = $another -eq 'y' -or $another -eq 'Y'
+    # Update last export time in config
+    $config = Get-HomeyConfig
+    if ($config.homeys.PSObject.Properties.Name -contains $Alias) {
+        $config.homeys.$Alias.lastExport = (Get-Date).ToString("o")
+        Save-HomeyConfig -Config $config
     }
     
-    return $creds
+    return $filepath
 }
 
 function Show-Instructions {
@@ -273,53 +276,116 @@ function Show-Instructions {
     Write-Host "1. Open the Homey app" -ForegroundColor White
     Write-Host "2. Go to Settings → General" -ForegroundColor White
     Write-Host "3. Look for 'IP address' under network info" -ForegroundColor White
+    Write-Host "   OR run: .\Scan-Network.ps1 -UpdateConfig" -ForegroundColor Cyan
     Write-Host ""
+}
+
+function Show-ConfiguredHubs {
+    $hubs = Get-AllHomeyHubs
+    
+    if ($hubs.Count -eq 0) {
+        Write-Host "`n  No Homey hubs configured yet." -ForegroundColor Yellow
+        Write-Host "  Run: .\Scan-Network.ps1 -UpdateConfig -HomeyAlias 'Home'" -ForegroundColor Cyan
+        return
+    }
+    
+    Write-Host "`n📋 Configured Homey Hubs:" -ForegroundColor Cyan
+    Write-Host "─────────────────────────────────────────" -ForegroundColor DarkGray
+    
+    foreach ($item in $hubs) {
+        $hub = $item.Hub
+        $hasKey = if (Get-HomeyApiKey -Alias $item.Alias) { "✓" } else { "✗" }
+        
+        Write-Host "  🏠 $($item.Alias)" -ForegroundColor White
+        Write-Host "     IP: $($hub.ip)" -ForegroundColor DarkGray
+        Write-Host "     Name: $($hub.name)" -ForegroundColor DarkGray
+        Write-Host "     API Key: $hasKey" -ForegroundColor $(if ($hasKey -eq "✓") { "Green" } else { "Yellow" })
+        if ($hub.lastExport) {
+            Write-Host "     Last Export: $($hub.lastExport)" -ForegroundColor DarkGray
+        }
+        Write-Host ""
+    }
 }
 
 # Main script
 Write-Banner
 
-# Check if running with parameters
-if ($HomeyName -and $HomeyIP -and $ApiKey) {
-    # Direct export with provided parameters
-    $exportData = Export-HomeyData -Name $HomeyName -IP $HomeyIP -Token $ApiKey
+# List hubs mode
+if ($ListHubs) {
+    Show-ConfiguredHubs
+    exit 0
+}
+
+# Try to get config from stored values
+$hub = Get-HomeyHub -Alias $HomeyAlias
+
+# Override with parameters if provided
+if (-not $HomeyIP -and $hub) {
+    $HomeyIP = $hub.ip
+}
+
+if (-not $ApiKey) {
+    $ApiKey = Get-HomeyApiKey -Alias $HomeyAlias
+}
+
+# Save credentials if requested
+if ($SaveCredentials -and $ApiKey) {
+    Set-HomeyApiKey -Alias $HomeyAlias -ApiKey $ApiKey
+}
+
+# Check if we have required config
+$hasConfig = $HomeyIP -and $ApiKey
+
+if ($hasConfig) {
+    Write-Host "📋 Using configuration for: $HomeyAlias" -ForegroundColor Cyan
+    Write-Host "   IP: $HomeyIP" -ForegroundColor DarkGray
+    Write-Host "   API Key: $($ApiKey.Substring(0, [Math]::Min(8, $ApiKey.Length)))..." -ForegroundColor DarkGray
+    Write-Host "   Export to: .\_hubExport\$($env:USERNAME)\$HomeyAlias\" -ForegroundColor DarkGray
+    Write-Host ""
+    
+    # Update hub config with IP if not already set
+    if (-not $hub -or -not $hub.ip) {
+        Set-HomeyHub -Alias $HomeyAlias -IP $HomeyIP | Out-Null
+    }
+    
+    # Direct export
+    $exportData = Export-HomeyData -Alias $HomeyAlias -IP $HomeyIP -Token $ApiKey
     
     if ($exportData) {
-        Save-ExportData -Data $exportData -Name $HomeyName
+        Save-ExportData -Data $exportData -Alias $HomeyAlias
     }
 }
 else {
-    # Interactive mode
+    # Interactive mode - show what's missing
+    Write-Host "⚠️ Missing configuration for '$HomeyAlias':" -ForegroundColor Yellow
+    if (-not $HomeyIP) { Write-Host "   • IP address not set" -ForegroundColor DarkGray }
+    if (-not $ApiKey) { Write-Host "   • API key not stored" -ForegroundColor DarkGray }
+    Write-Host ""
+    
+    Show-ConfiguredHubs
+    
+    Write-Host "`n💡 Quick setup:" -ForegroundColor Cyan
+    Write-Host "   1. Run: .\Scan-Network.ps1 -UpdateConfig -HomeyAlias '$HomeyAlias'" -ForegroundColor White
+    Write-Host "   2. Run: .\Export-Homey.ps1 -HomeyAlias '$HomeyAlias' -ApiKey 'your-key' -SaveCredentials" -ForegroundColor White
+    Write-Host ""
+    
     Show-Instructions
     
-    $ready = Read-Host "Press Enter when you have your API key(s) ready, or 'q' to quit"
-    if ($ready -eq 'q') {
-        exit 0
+    $inputIp = Read-Host "Enter Homey IP (or press Enter to quit)"
+    if (-not $inputIp) { exit 0 }
+    
+    $inputKey = Read-Host "Enter API Key"
+    if (-not $inputKey) { exit 0 }
+    
+    $saveChoice = Read-Host "Save credentials securely? (y/n)"
+    if ($saveChoice -eq 'y' -or $saveChoice -eq 'Y') {
+        Set-HomeyHub -Alias $HomeyAlias -IP $inputIp | Out-Null
+        Set-HomeyApiKey -Alias $HomeyAlias -ApiKey $inputKey
     }
     
-    $homeys = Get-HomeyCredentials
+    $exportData = Export-HomeyData -Alias $HomeyAlias -IP $inputIp -Token $inputKey
     
-    $allExports = @()
-    
-    foreach ($homey in $homeys) {
-        $exportData = Export-HomeyData -Name $homey.Name -IP $homey.IP -Token $homey.ApiKey
-        
-        if ($exportData) {
-            $filepath = Save-ExportData -Data $exportData -Name $homey.Name
-            $allExports += @{
-                Name = $homey.Name
-                Path = $filepath
-            }
-        }
-    }
-    
-    if ($allExports.Count -gt 0) {
-        Write-Host "`n🎉 EXPORT COMPLETE!" -ForegroundColor Green
-        Write-Host "─────────────────────────────────────────" -ForegroundColor DarkGray
-        Write-Host "Exported files:" -ForegroundColor White
-        foreach ($export in $allExports) {
-            Write-Host "  • $($export.Name): $($export.Path)" -ForegroundColor DarkGray
-        }
-        Write-Host ""
+    if ($exportData) {
+        Save-ExportData -Data $exportData -Alias $HomeyAlias
     }
 }

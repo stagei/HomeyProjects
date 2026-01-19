@@ -5,12 +5,24 @@
 .DESCRIPTION
     Authenticates with your Athom account, discovers all your Homeys,
     and exports devices, flows, zones, apps, and configuration.
+    
+    Exports are saved to: .\_hubExport\<username>\<HomeyAlias>\
 
 .PARAMETER Email
     Your Athom account email
 
 .PARAMETER Password
     Your Athom account password
+
+.PARAMETER Token
+    OAuth token (if already authenticated)
+
+.PARAMETER SaveCredentials
+    Save credentials securely for future use
+
+.EXAMPLE
+    .\Export-HomeyCloud.ps1
+    .\Export-HomeyCloud.ps1 -Email "user@example.com" -Password "pass" -SaveCredentials
 #>
 
 [CmdletBinding()]
@@ -19,11 +31,21 @@ param(
     [string]$Email,
 
     [Parameter(Mandatory = $false)]
-    [string]$Password
+    [string]$Password,
+
+    [Parameter(Mandatory = $false)]
+    [string]$Token,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$SaveCredentials
 )
 
 # Use TLS 1.2
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+# Import configuration module from parent directory
+$script:RootPath = Split-Path -Parent $PSScriptRoot
+Import-Module (Join-Path $script:RootPath "HomeyConfig.psm1") -Force
 
 $script:AthomToken = $null
 $script:AthomUser = $null
@@ -31,7 +53,7 @@ $script:AthomUser = $null
 function Write-Banner {
     Write-Host ""
     Write-Host "╔════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║     HOMEY CLOUD EXPORT - Auto Discovery                ║" -ForegroundColor Cyan
+    Write-Host "║     HOMEY CLOUD EXPORT - Auto Discovery v2.0           ║" -ForegroundColor Cyan
     Write-Host "╚════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -123,14 +145,14 @@ function Get-MyHomeys {
         $homeyList = @()
         foreach ($homey in $homeys) {
             $homeyInfo = @{
-                id           = $homey._id
-                name         = $homey.name
-                localAddress = $homey.localAddress
-                localUrl     = $homey.localUrl
-                cloudUrl     = "https://$($homey._id).connect.athom.com"
-                platform     = $homey.platform
-                state        = $homey.state
-                apiVersion   = $homey.apiVersion
+                id              = $homey._id
+                name            = $homey.name
+                localAddress    = $homey.localAddress
+                localUrl        = $homey.localUrl
+                cloudUrl        = "https://$($homey._id).connect.athom.com"
+                platform        = $homey.platform
+                state           = $homey.state
+                apiVersion      = $homey.apiVersion
                 softwareVersion = $homey.softwareVersion
             }
             
@@ -206,17 +228,45 @@ function Invoke-HomeyCloudApi {
     }
 }
 
+function Get-HomeyAliasFromName {
+    param([string]$Name)
+    
+    # Try to match existing hub aliases, or create a safe one
+    $hubs = Get-AllHomeyHubs
+    
+    foreach ($hub in $hubs) {
+        if ($hub.Hub.name -eq $Name -or $hub.Hub.cloudId) {
+            return $hub.Alias
+        }
+    }
+    
+    # Create alias from name (remove special chars, use PascalCase)
+    $alias = $Name -replace '[^a-zA-Z0-9\s]', '' -replace '\s+', ''
+    if (-not $alias) { $alias = "Homey" }
+    
+    return $alias
+}
+
 function Export-SingleHomey {
     param(
         [object]$Homey,
-        [string]$Token
+        [string]$Token,
+        [string]$Alias
     )
     
-    Write-Host "`n📦 Exporting data from: $($Homey.name)" -ForegroundColor Green
+    Write-Host "`n📦 Exporting data from: $($Homey.name) (as '$Alias')" -ForegroundColor Green
     Write-Host "   Using cloud connection..." -ForegroundColor DarkGray
+    
+    # Update hub config
+    Set-HomeyHub -Alias $Alias `
+        -IP $Homey.localAddress `
+        -Name $Homey.name `
+        -CloudId $Homey.id `
+        -Version $Homey.softwareVersion | Out-Null
     
     $exportData = @{
         exportedAt      = (Get-Date).ToString("o")
+        homeyAlias      = $Alias
         homeyName       = $Homey.name
         homeyId         = $Homey.id
         localAddress    = $Homey.localAddress
@@ -301,22 +351,26 @@ function Export-SingleHomey {
 function Save-ExportData {
     param(
         [object]$Data,
-        [string]$Name
+        [string]$Alias
     )
     
-    $exportsDir = Join-Path $PSScriptRoot "exports"
-    if (-not (Test-Path $exportsDir)) {
-        New-Item -ItemType Directory -Path $exportsDir -Force | Out-Null
-    }
+    # Get export path: .\_hubExport\<username>\<Alias>\
+    $exportDir = Get-HomeyExportPath -HomeyAlias $Alias
     
     $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
-    $safeName = $Name -replace '[^a-zA-Z0-9]', '_'
-    $filename = "$($safeName)_$($timestamp).json"
-    $filepath = Join-Path $exportsDir $filename
+    $filename = "export_$($timestamp).json"
+    $filepath = Join-Path $exportDir $filename
     
     $Data | ConvertTo-Json -Depth 30 | Set-Content -Path $filepath -Encoding UTF8
     
     Write-Host "`n✅ Saved to: $filepath" -ForegroundColor Green
+    
+    # Update last export time in config
+    $config = Get-HomeyConfig
+    if ($config.homeys.PSObject.Properties.Name -contains $Alias) {
+        $config.homeys.$Alias.lastExport = (Get-Date).ToString("o")
+        Save-HomeyConfig -Config $config
+    }
     
     return $filepath
 }
@@ -324,16 +378,50 @@ function Save-ExportData {
 # Main script
 Write-Banner
 
-# Get credentials
-if (-not $Email) {
-    $Email = Read-Host "Enter your Athom account email"
+# Load stored credentials if available
+$storedCreds = Get-AthomCredential
+
+if (-not $Email -and $storedCreds) {
+    $Email = $storedCreds.Email
 }
-if (-not $Password) {
-    $Password = Read-Host "Enter your password"
+if (-not $Password -and $storedCreds -and $storedCreds.Password) {
+    $Password = $storedCreds.Password
+}
+if (-not $Token -and $storedCreds -and $storedCreds.Token) {
+    $Token = $storedCreds.Token
 }
 
-# Authenticate
-$authSuccess = Get-AthomToken -Email $Email -Password $Password
+# Check if we have a token already
+$authSuccess = $false
+
+if ($Token) {
+    Write-Host "🔑 Using stored/provided token..." -ForegroundColor Yellow
+    $script:AthomToken = $Token
+    $authSuccess = $true
+}
+else {
+    # Get credentials if not provided
+    if (-not $Email) {
+        Write-Host "📧 Enter your Athom account credentials" -ForegroundColor Cyan
+        $Email = Read-Host "  Email"
+    }
+    if (-not $Password) {
+        $Password = Read-Host "  Password"
+    }
+    
+    # Authenticate
+    $authSuccess = Get-AthomToken -Email $Email -Password $Password
+    
+    # Save credentials if requested and successful
+    if ($authSuccess -and $SaveCredentials) {
+        Set-AthomCredential -Email $Email -Password $Password -Token $script:AthomToken
+        Write-Host "  🔐 Credentials saved securely" -ForegroundColor Green
+    }
+    elseif ($authSuccess -and $script:AthomToken) {
+        # At least save the token
+        Set-AthomCredential -Email $Email -Token $script:AthomToken
+    }
+}
 
 if (-not $authSuccess) {
     Write-Host "`n❌ Could not authenticate. Please check your credentials." -ForegroundColor Red
@@ -374,13 +462,17 @@ foreach ($homey in $homeys) {
         continue
     }
     
-    $exportData = Export-SingleHomey -Homey $homey -Token $delegationToken
+    # Determine alias for this Homey
+    $alias = Get-HomeyAliasFromName -Name $homey.name
+    
+    $exportData = Export-SingleHomey -Homey $homey -Token $delegationToken -Alias $alias
     
     if ($exportData) {
-        $filepath = Save-ExportData -Data $exportData -Name $homey.name
+        $filepath = Save-ExportData -Data $exportData -Alias $alias
         $allExports += @{
-            Name = $homey.name
-            Path = $filepath
+            Name  = $homey.name
+            Alias = $alias
+            Path  = $filepath
         }
     }
 }
@@ -393,7 +485,7 @@ if ($allExports.Count -gt 0) {
     Write-Host "════════════════════════════════════════════════════════" -ForegroundColor Cyan
     Write-Host "`nExported files:" -ForegroundColor White
     foreach ($export in $allExports) {
-        Write-Host "  • $($export.Name): $($export.Path)" -ForegroundColor DarkGray
+        Write-Host "  • $($export.Name) → $($export.Path)" -ForegroundColor DarkGray
     }
     Write-Host ""
 }

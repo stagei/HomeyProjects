@@ -7,16 +7,42 @@
     identifies known device types (Homey, Hue, routers, etc.),
     and saves results to a JSON file.
 
+.PARAMETER OutputFile
+    Output file for full scan results (default: network-scan.json)
+
+.PARAMETER SearchForText
+    Text to search for in device names/types (default: "Homey")
+
+.PARAMETER UpdateConfig
+    Update the homey-config.json with found Homey IP
+
+.PARAMETER HomeyAlias
+    Alias to use when saving to config (default: "Home")
+
 .EXAMPLE
     .\Scan-Network.ps1
-    .\Scan-Network.ps1 -OutputFile "my-network.json"
+    .\Scan-Network.ps1 -UpdateConfig -HomeyAlias "Cabin"
+    .\Scan-Network.ps1 -SearchForText "Hue"
 #>
 
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $false)]
-    [string]$OutputFile = "network-scan.json"
+    [string]$OutputFile = "network-scan.json",
+
+    [Parameter(Mandatory = $false)]
+    [string]$SearchForText = "Homey",
+
+    [Parameter(Mandatory = $false)]
+    [switch]$UpdateConfig,
+
+    [Parameter(Mandatory = $false)]
+    [string]$HomeyAlias = "Home"
 )
+
+# Import configuration module from parent directory
+$script:RootPath = Split-Path -Parent $PSScriptRoot
+Import-Module (Join-Path $script:RootPath "HomeyConfig.psm1") -Force
 
 function Write-Banner {
     Write-Host ""
@@ -24,6 +50,37 @@ function Write-Banner {
     Write-Host "║           NETWORK SCANNER - Device Discovery           ║" -ForegroundColor Cyan
     Write-Host "╚════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
+}
+
+function Find-DevicesByText {
+    param(
+        [array]$Devices,
+        [string]$SearchText
+    )
+    
+    $matches = @()
+    
+    foreach ($dev in $Devices) {
+        $matchFound = $false
+        
+        # Check hostname
+        if ($dev.Hostname -match $SearchText) { $matchFound = $true }
+        
+        # Check device type
+        if ($dev.Type -match $SearchText) { $matchFound = $true }
+        
+        # Check web title
+        if ($dev.WebTitle -match $SearchText) { $matchFound = $true }
+        
+        # Check Homey info
+        if ($dev.HomeyInfo -and $dev.HomeyInfo.Name -match $SearchText) { $matchFound = $true }
+        
+        if ($matchFound) {
+            $matches += $dev
+        }
+    }
+    
+    return $matches
 }
 
 function Get-LocalNetworkInfo {
@@ -52,11 +109,11 @@ function Get-LocalNetworkInfo {
     Write-Host "    Network: $networkBase.0/$prefix" -ForegroundColor DarkGray
     
     return @{
-        AdapterName = $adapter.InterfaceAlias
-        LocalIP = $ip
-        Gateway = $gateway
-        MAC = $mac
-        NetworkBase = $networkBase
+        AdapterName  = $adapter.InterfaceAlias
+        LocalIP      = $ip
+        Gateway      = $gateway
+        MAC          = $mac
+        NetworkBase  = $networkBase
         PrefixLength = $prefix
     }
 }
@@ -117,12 +174,12 @@ function Check-IsHomey {
             if ($response.homeyVersion -or $response.name -or $response.model) {
                 return @{
                     IsHomey = $true
-                    Info = @{
-                        Name = $response.name
-                        Version = $response.homeyVersion
-                        Model = $response.model
+                    Info    = @{
+                        Name      = $response.name
+                        Version   = $response.homeyVersion
+                        Model     = $response.model
                         ModelName = $response.modelName
-                        CloudId = $response.cloudId
+                        CloudId   = $response.cloudId
                     }
                 }
             }
@@ -146,9 +203,9 @@ function Get-WebServerInfo {
         }
         
         return @{
-            HasWeb = $true
-            Server = $server
-            Title = $title
+            HasWeb  = $true
+            Server  = $server
+            Title   = $title
             Content = $response.Content
         }
     }
@@ -240,14 +297,14 @@ function Scan-Network {
         if (Test-TcpPort -IP $ip -Port 22) { $openPorts += 22 }
         
         $device = @{
-            IP = $ip
-            MAC = $mac
-            Hostname = $hostname
-            Type = $deviceType
+            IP        = $ip
+            MAC       = $mac
+            Hostname  = $hostname
+            Type      = $deviceType
             OpenPorts = $openPorts
             WebServer = $webInfo.Server
-            WebTitle = $webInfo.Title
-            IsHomey = $homeyCheck.IsHomey
+            WebTitle  = $webInfo.Title
+            IsHomey   = $homeyCheck.IsHomey
             HomeyInfo = $homeyCheck.Info
         }
         
@@ -287,17 +344,17 @@ $homeyDevices = @($devices | Where-Object { $_.IsHomey -eq $true })
 $identifiedDevices = @($devices | Where-Object { $_.Type -ne $null })
 
 $results = @{
-    ScanTime = (Get-Date).ToString("o")
-    Network = @{
+    ScanTime        = (Get-Date).ToString("o")
+    Network         = @{
         Adapter = $networkInfo.AdapterName
         LocalIP = $networkInfo.LocalIP
         Gateway = $networkInfo.Gateway
-        Range = "$($networkInfo.NetworkBase).0/$($networkInfo.PrefixLength)"
+        Range   = "$($networkInfo.NetworkBase).0/$($networkInfo.PrefixLength)"
     }
-    DeviceCount = $devices.Count
+    DeviceCount     = $devices.Count
     IdentifiedCount = $identifiedDevices.Count
-    Devices = $devices
-    HomeyDevices = $homeyDevices
+    Devices         = $devices
+    HomeyDevices    = $homeyDevices
 }
 
 # Save to JSON
@@ -327,16 +384,18 @@ foreach ($dev in $devices) {
     
     $nameCol = if ($dev.Type) { 
         $dev.Type 
-    } elseif ($dev.Hostname -ne "Unknown") { 
+    }
+    elseif ($dev.Hostname -ne "Unknown") { 
         $dev.Hostname 
-    } else { 
+    }
+    else { 
         "(Unknown)" 
     }
     $nameCol = $nameCol.Substring(0, [Math]::Min(30, $nameCol.Length)).PadRight(30)
     
     $color = if ($dev.IsHomey) { "Green" } 
-             elseif ($dev.Type) { "Yellow" } 
-             else { "DarkGray" }
+    elseif ($dev.Type) { "Yellow" } 
+    else { "DarkGray" }
     
     $marker = if ($dev.IsHomey) { " 🏠" } else { "" }
     
@@ -366,7 +425,9 @@ if ($homeyDevices.Count -gt 0) {
         }
         
         Write-Host "`n    ✅ Export data with:" -ForegroundColor Green
-        Write-Host "       .\Export-Homey.ps1 -HomeyIP '$($homey.IP)' -HomeyName 'MyHomey'" -ForegroundColor Yellow
+        Write-Host "       .\Run-Export.ps1 -HomeyAlias '$HomeyAlias' -HomeyIP '$($homey.IP)' -ApiKey 'your-key' -SaveCredentials" -ForegroundColor Yellow
+        Write-Host "    Or run the setup wizard:" -ForegroundColor Green
+        Write-Host "       .\Run-Setup.ps1 -HomeyAlias '$HomeyAlias'" -ForegroundColor Yellow
     }
 }
 else {
@@ -396,4 +457,66 @@ if ($smartHomeDevices.Count -gt 0) {
     }
 }
 
+# Search for specific text if provided
+$foundDevices = @()
+if ($SearchForText) {
+    Write-Host "`n" -NoNewline
+    Write-Host "════════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host "                   SEARCH RESULTS                       " -ForegroundColor Cyan
+    Write-Host "════════════════════════════════════════════════════════" -ForegroundColor Cyan
+    
+    $foundDevices = Find-DevicesByText -Devices $devices -SearchText $SearchForText
+    
+    if ($foundDevices.Count -gt 0) {
+        Write-Host "`n  🔍 Found $($foundDevices.Count) device(s) matching '$SearchForText':" -ForegroundColor Green
+        
+        foreach ($dev in $foundDevices) {
+            $deviceName = if ($dev.HomeyInfo.Name) { $dev.HomeyInfo.Name } 
+            elseif ($dev.Type) { $dev.Type } 
+            else { $dev.Hostname }
+            
+            Write-Host "`n    📍 IP: $($dev.IP)" -ForegroundColor White
+            Write-Host "       Name: $deviceName" -ForegroundColor Cyan
+            Write-Host "       MAC: $($dev.MAC)" -ForegroundColor DarkGray
+            
+            if ($dev.HomeyInfo) {
+                Write-Host "       Model: $($dev.HomeyInfo.ModelName)" -ForegroundColor DarkGray
+                Write-Host "       Version: $($dev.HomeyInfo.Version)" -ForegroundColor DarkGray
+            }
+        }
+        
+        # Update config with first found Homey IP if -UpdateConfig switch is set
+        if ($UpdateConfig) {
+            $homeyDevice = $foundDevices | Where-Object { $_.IsHomey -eq $true } | Select-Object -First 1
+            if ($homeyDevice) {
+                Write-Host ""
+                Set-HomeyHub -Alias $HomeyAlias `
+                    -IP $homeyDevice.IP `
+                    -Name $homeyDevice.HomeyInfo.Name `
+                    -Model $homeyDevice.HomeyInfo.Model `
+                    -Version $homeyDevice.HomeyInfo.Version `
+                    -CloudId $homeyDevice.HomeyInfo.CloudId | Out-Null
+                
+                Write-Host "  📝 Updated config for '$HomeyAlias':" -ForegroundColor Green
+                Write-Host "     IP: $($homeyDevice.IP)" -ForegroundColor DarkGray
+                Write-Host "     Name: $($homeyDevice.HomeyInfo.Name)" -ForegroundColor DarkGray
+            }
+            elseif ($foundDevices.Count -gt 0) {
+                # Use first matched device if no confirmed Homey
+                Write-Host ""
+                Set-HomeyHub -Alias $HomeyAlias -IP $foundDevices[0].IP | Out-Null
+                Write-Host "  📝 Updated config for '$HomeyAlias' with IP: $($foundDevices[0].IP)" -ForegroundColor Green
+            }
+        }
+    }
+    else {
+        Write-Host "`n  ⚠️ No devices found matching '$SearchForText'" -ForegroundColor Yellow
+    }
+}
+
 Write-Host "`n"
+
+# Return found IP addresses for pipeline usage
+if ($foundDevices.Count -gt 0) {
+    return $foundDevices | ForEach-Object { $_.IP }
+}
