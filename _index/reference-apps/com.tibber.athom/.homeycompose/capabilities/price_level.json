@@ -1,0 +1,42 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Price level (deprecated)"
+  },
+  "getable": true,
+  "setable": false,
+  "values": [
+    {
+      "id": "VERY_CHEAP",
+      "title": {
+        "en": "VERY_CHEAP"
+      }
+    },
+    {
+      "id": "CHEAP",
+      "title": {
+        "en": "CHEAP"
+      }
+    },
+    {
+      "id": "NORMAL",
+      "title": {
+        "en": "NORMAL"
+      }
+    },
+    {
+      "id": "EXPENSIVE",
+      "title": {
+        "en": "EXPENSIVE"
+      }
+    },
+    {
+      "id": "VERY_EXPENSIVE",
+      "title": {
+        "en": "VERY_EXPENSIVE"
+      }
+    }
+  ],
+  "icon": "/drivers/home/assets/dollar.svg",
+  "uiComponent": null
+}

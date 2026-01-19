@@ -1,0 +1,23 @@
+{
+  "id": "send_keys",
+  "title": {
+    "en": "Send list of keys"
+  },
+  "titleFormatted": {
+    "en": "Send list of keys [[keys1]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=Samsung|SamsungEncrypted|SamsungLegacy"
+    },
+    {
+      "name": "keys1",
+      "type": "text",
+      "title": {
+        "en": "List of keys"
+      }
+    }
+  ]
+}

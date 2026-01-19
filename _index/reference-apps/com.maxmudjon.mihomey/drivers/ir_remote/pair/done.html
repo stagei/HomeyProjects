@@ -1,0 +1,16 @@
+<script>
+  Homey.setTitle("Adding device to Homey...");
+  Homey.emit("allmostDone", null, (error, result) => {
+    if (error) {
+      return Homey.alert(error);
+    }
+
+    Homey.addDevice(result, (error, res) => {
+      if (error) {
+        return Homey.alert(error);
+      }
+
+      Homey.done();
+    });
+  });
+</script>

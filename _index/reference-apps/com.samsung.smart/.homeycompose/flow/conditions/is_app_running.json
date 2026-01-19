@@ -1,0 +1,23 @@
+{
+  "id": "is_app_running",
+  "title": {
+    "en": "Is app !{{running|not running}}"
+  },
+  "titleFormatted": {
+    "en": "Is app [[app_id]] !{{running|not running}}"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=Samsung|SamsungEncrypted"
+    },
+    {
+      "name": "app_id",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "Search for app..."
+      }
+    }
+  ]
+}

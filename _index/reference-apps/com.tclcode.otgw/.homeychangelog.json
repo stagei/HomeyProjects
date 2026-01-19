@@ -1,0 +1,20 @@
+{
+  "2.1.0": {
+    "en": "Fixed sensor pairing"
+  },
+  "2.1.1": {
+    "en": "Fixed condition card bug"
+  },
+  "2.2.0": {
+    "en": "Added OpenTherm messages; improved error handling"
+  },
+  "3.0.0": {
+    "en": "Update to SDK v3; fixed connection issues; improved error handling"
+  },
+  "3.0.1": {
+    "en": "Improve error handling"
+  },
+  "3.0.2": {
+    "en": "Bug fix on search"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "youtube",
+  "title": {
+    "en": "Launch video on YouTube"
+  },
+  "titleFormatted": {
+    "en": "Launch video [[videoId]] on YouTube"
+  },
+  "hint": {
+    "en": "Use this action to launch YouTube. Not all TVs support this action."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=Samsung|SamsungEncrypted"
+    },
+    {
+      "name": "videoId",
+      "type": "text",
+      "title": {
+        "en": "Provide the YouTube video id"
+      }
+    }
+  ]
+}

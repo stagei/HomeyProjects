@@ -1,0 +1,30 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Price level (deprecated)"
+  },
+  "getable": true,
+  "setable": false,
+  "values": [
+    {
+      "id": "LOW",
+      "title": {
+        "en": "LOW"
+      }
+    },
+    {
+      "id": "NORMAL",
+      "title": {
+        "en": "NORMAL"
+      }
+    },
+    {
+      "id": "HIGH",
+      "title": {
+        "en": "HIGH"
+      }
+    }
+  ],
+  "icon": "/drivers/home/assets/dollar.svg",
+  "uiComponent": null
+}

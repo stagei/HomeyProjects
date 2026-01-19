@@ -1,0 +1,24 @@
+{
+  "source": {
+    "include": ["./lib", "./index.js", "./lib/util"]
+  },
+  "opts": {
+    "simpleAnalyticsHost": "sa.athom.com",
+    "mainpagetitle": "Homey ZigbeeDriver",
+    "template": "./node_modules/@athombv/jsdoc-template",
+    "readme": "./README.md",
+    "destination": "./build"
+  },
+  "plugins": [
+    "jsdoc-ts-utils",
+    "plugins/markdown"
+  ],
+  "templates": {
+    "default": {
+      "outputSourceFiles": false
+    }
+  },
+  "tsUtils": {
+    "typeScriptUtilityTypes": false
+  }
+}

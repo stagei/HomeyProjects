@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+  </head>
+
+  <body>
+    <div id="local-settings">
+      <header class="homey-header">
+        <h1 class="homey-title">Direct connect</h1>
+      </header>
+      <p>The following URLs will load the Dashboard directly from your Homey.</p>
+      <p>
+        Direct connection to your Homey, allows you to login using an API-key from a <b>Homey Pro 2023</b>. 
+        This allows you to select access scopes for limited access. Can typically be used for a 
+        read-only dashboard.
+      </p>
+      <p>
+        <ul>
+          <li><b>Local URL</b> is a link that only works when connected to your local network.</li>
+          <li><b>Remote URL</b> is a link that uses Athom Connect to connect directly to your Homey over the internet.</li>
+        </ul>
+      </p>
+      <button onclick="openLocal()" class="homey-button-primary">Local URL</button>
+      <button onclick="openRemote()" class="homey-button-primary">Remote URL</button>
+    </div>
+
+    <header class="homey-header" style="margin-top: 32px">
+      <h1 class="homey-title">Online url</h1>
+    </header>
+    <p>
+      The Dashboard app is available online at GitHub.io, and allows you to log in using your Athom account.
+    </p>
+    <p>
+      <span style="color: orangered;">NOTE: </span>This will request full access to your Homey. As the 
+      Athom login don't give you an option to select exact access scopes while logging in.
+    </p>
+    <button onclick="openOnline()" class="homey-button-primary">Open homeyboard.github.io</button>
+    
+    <script type="text/javascript">
+      const urlPostfix = '/app/skogsaas.dashboards/assets/dashboard';
+
+      let onlineUrl = 'https://homeyboard.github.io';
+      let localUrl;
+      let remoteUrl;
+      let homey;
+
+      function onHomeyReady(Homey) {
+        // Retain the Homey instance for later use.
+        homey = Homey;
+
+        homey.get("platform_version", function (err, platformVersion) {
+          if(platformVersion !== 2) {
+            document.getElementById("local-settings").style.display = 'hidden';
+          }
+        });
+
+        homey.get("homey_id", function (err, homeyId) {
+          remoteUrl = 'https://' + homeyId + '.connect.athom.com' + urlPostfix;
+        });
+
+        homey.get("local_address", function (err, localAddr) {
+          localUrl = 'https://' + localAddr.split(':')[0].replaceAll('.', '-') + '.homey.homeylocal.com' + urlPostfix;
+        });
+
+        homey.ready();
+      }
+
+      function openOnline() {
+        homey.openURL(onlineUrl);
+      }
+
+      function openLocal() {
+        homey.openURL(localUrl);
+      }
+
+      function openRemote() {
+        homey.openURL(remoteUrl);
+      }
+    </script>
+    
+  </body>
+</html>

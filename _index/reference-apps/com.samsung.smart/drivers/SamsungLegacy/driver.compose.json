@@ -1,0 +1,14 @@
+{
+  "id": "SamsungLegacy",
+  "name": {
+    "en": "Samsung (legacy)"
+  },
+  "$extends": [
+    "defaults"
+  ],
+  "pair": [
+    {
+      "id": "ip_address"
+    }
+  ]
+}

@@ -1,0 +1,642 @@
+# Homey Apps SDK - Cursor AI Rules
+
+This file provides guidelines for Cursor AI to write correct, maintainable Homey app code.
+
+## How to Use This Documentation
+
+**IMPORTANT: Before writing any Homey code, consult this file and the referenced documentation.**
+
+### Decision Tree: What Documentation to Read
+
+```
+What are you building?
+├── New Homey App from scratch
+│   └── Read: _index/docs/the-basics/getting-started/index.md
+│   └── Read: _index/docs/the-basics/app/manifest.md
+│   └── Template: Basic App (see Code Templates below)
+│
+├── Device Driver
+│   ├── What protocol?
+│   │   ├── Zigbee → Read: _index/docs/wireless/zigbee.md
+│   │   │           └── Example: _index/reference-apps/com.ikea.tradfri-example/
+│   │   ├── Z-Wave → Read: _index/docs/wireless/zwave.md
+│   │   │           └── Example: _index/reference-apps/node-homey-zwavedriver/
+│   │   ├── Wi-Fi/HTTP → Read: _index/docs/wireless/wifi.md
+│   │   │              └── Example: _index/reference-apps/com.samsung.smart/
+│   │   ├── 433 MHz → Read: _index/docs/wireless/433mhz.md
+│   │   │            └── Example: _index/reference-apps/nl.klikaanklikuit-example/
+│   │   └── Bluetooth LE → Read: _index/docs/wireless/bluetooth-le.md
+│   └── Read: _index/docs/the-basics/devices.md
+│   └── Read: _index/docs/the-basics/devices/pairing.md
+│
+├── Flow Cards (Triggers/Conditions/Actions)
+│   └── Read: _index/docs/the-basics/flow.md
+│   └── Read: _index/docs/the-basics/flow/arguments.md
+│
+├── Widgets/Dashboard
+│   └── Read: _index/docs/the-basics/widgets.md
+│   └── Example: _index/reference-apps/homey.dashboards/
+│
+├── OAuth2/Cloud API Integration
+│   └── Read: _index/docs/cloud/oauth2.md
+│   └── Example: _index/reference-apps/com.netatmo/
+│   └── Library: _index/reference-apps/node-homey-oauth2app/
+│
+├── Web API Endpoints
+│   └── Read: _index/docs/advanced/web-api.md
+│
+└── Custom Settings UI
+    └── Read: _index/docs/advanced/custom-views/app-settings.md
+```
+
+### Quick Lookup: Common Tasks
+
+| Task | What to Read | Reference App |
+|------|--------------|---------------|
+| Create new app | `_index/docs/the-basics/app/manifest.md` | - |
+| Add device driver | `_index/docs/the-basics/devices.md` | varies by protocol |
+| Handle capabilities | `_index/docs/api-reference/device-capabilities.md` | - |
+| Create flow cards | `_index/docs/the-basics/flow.md` | - |
+| Store settings | `_index/docs/the-basics/app/persistent-storage.md` | - |
+| OAuth2 login | `_index/docs/cloud/oauth2.md` | `_index/reference-apps/com.netatmo/` |
+| Device discovery | `_index/docs/wireless/wifi.md` | `_index/reference-apps/com.samsung.smart/` |
+| Zigbee device | `_index/docs/wireless/zigbee.md` | `_index/reference-apps/com.ikea.tradfri-example/` |
+| Z-Wave device | `_index/docs/wireless/zwave.md` | `_index/reference-apps/node-homey-zwavedriver/` |
+| 433 MHz RF | `_index/docs/wireless/433mhz.md` | `_index/reference-apps/nl.klikaanklikuit-example/` |
+| Webhooks | `_index/docs/cloud/webhooks.md` | - |
+| Custom pairing UI | `_index/docs/advanced/custom-views/pairing-views.md` | - |
+| Translations | `_index/docs/the-basics/app/internationalization.md` | - |
+
+---
+
+## Documentation Index
+
+Reference these local documentation files for Homey scripting:
+
+| Topic | File |
+|-------|------|
+| Getting Started | `_index/docs/the-basics/getting-started/index.md` |
+| Homey CLI | `_index/docs/the-basics/getting-started/homey-cli.md` |
+| App Structure | `_index/docs/the-basics/app/index.md` |
+| Manifest (app.json) | `_index/docs/the-basics/app/manifest.md` |
+| Permissions | `_index/docs/the-basics/app/permissions.md` |
+| Persistent Storage | `_index/docs/the-basics/app/persistent-storage.md` |
+| Internationalization | `_index/docs/the-basics/app/internationalization.md` |
+| Drivers & Devices | `_index/docs/the-basics/devices.md` |
+| Device Pairing | `_index/docs/the-basics/devices/pairing.md` |
+| Device Settings | `_index/docs/the-basics/devices/settings.md` |
+| Flow Cards | `_index/docs/the-basics/flow.md` |
+| Flow Arguments | `_index/docs/the-basics/flow/arguments.md` |
+| Widgets | `_index/docs/the-basics/widgets.md` |
+| Web API | `_index/docs/advanced/web-api.md` |
+| TypeScript | `_index/docs/advanced/typescript.md` |
+| Custom Views | `_index/docs/advanced/custom-views/index.md` |
+| App Settings View | `_index/docs/advanced/custom-views/app-settings.md` |
+| Pairing Views | `_index/docs/advanced/custom-views/pairing-views.md` |
+| Images | `_index/docs/advanced/images.md` |
+| Homey Compose | `_index/docs/advanced/homey-compose.md` |
+
+### Wireless Protocols
+| Protocol | File |
+|----------|------|
+| Wi-Fi | `_index/docs/wireless/wifi.md` |
+| Zigbee | `_index/docs/wireless/zigbee.md` |
+| Z-Wave | `_index/docs/wireless/zwave.md` |
+| Bluetooth LE | `_index/docs/wireless/bluetooth-le.md` |
+| Matter | `_index/docs/wireless/matter.md` |
+| 433 MHz | `_index/docs/wireless/433mhz.md` |
+| Infrared | `_index/docs/wireless/infrared.md` |
+
+### Cloud & App Store
+| Topic | File |
+|-------|------|
+| OAuth2 | `_index/docs/cloud/oauth2.md` |
+| Webhooks | `_index/docs/cloud/webhooks.md` |
+| Publishing | `_index/docs/app-store/publishing.md` |
+| Guidelines | `_index/docs/app-store/guidelines.md` |
+| SDK v3 Upgrade | `_index/docs/upgrade-guides/sdk-v3.md` |
+| Node.js 22 | `_index/docs/upgrade-guides/nodejs-22.md` |
+| **SDK v3 API Reference** | `_index/docs/api-reference/index.md` |
+| Device Capabilities | `_index/docs/api-reference/device-capabilities.md` |
+| Device Classes | `_index/docs/api-reference/device-classes.md` |
+
+## SDK v3 Managers Quick Reference
+
+| Manager | Access | Purpose |
+|---------|--------|---------|
+| ManagerApi | `this.homey.api` | Web API access |
+| ManagerApps | `this.homey.apps` | App management |
+| ManagerBLE | `this.homey.ble` | Bluetooth LE |
+| ManagerCloud | `this.homey.cloud` | Webhooks, OAuth2 |
+| ManagerDiscovery | `this.homey.discovery` | Device discovery |
+| ManagerDrivers | `this.homey.drivers` | Driver management |
+| ManagerFlow | `this.homey.flow` | Flow cards |
+| ManagerImages | `this.homey.images` | Image handling |
+| ManagerInsights | `this.homey.insights` | Charts/logs |
+| ManagerNotifications | `this.homey.notifications` | Push notifications |
+| ManagerRF | `this.homey.rf` | RF signals (433/868/IR) |
+| ManagerSettings | `this.homey.settings` | App settings |
+| ManagerZigBee | `this.homey.zigbee` | Zigbee protocol |
+| ManagerZwave | `this.homey.zwave` | Z-Wave protocol |
+
+## External References
+
+- Official SDK Docs: https://apps.developer.homey.app/
+- SDK API Reference: https://apps-sdk-v3.developer.homey.app/
+- Web API Reference: https://api.developer.homey.app/
+
+## Reference Apps (Local)
+
+See `_index/reference-apps/` folder for cloned GitHub repositories:
+
+| Category | Examples |
+|----------|----------|
+| **Zigbee** | `_index/reference-apps/com.ikea.tradfri-example/`, `_index/reference-apps/com.maxmudjon.mihomey/` |
+| **Z-Wave** | See `_index/reference-apps/node-homey-zwavedriver/` library |
+| **Wi-Fi/HTTP** | `_index/reference-apps/com.netatmo/`, `_index/reference-apps/com.samsung.smart/`, `_index/reference-apps/com.tibber.athom/` |
+| **433 MHz RF** | `_index/reference-apps/nl.klikaanklikuit-example/`, `_index/reference-apps/node-homey-rfdriver/` |
+| **OAuth2** | `_index/reference-apps/com.netatmo/`, `_index/reference-apps/node-homey-oauth2app/` |
+| **Scripts** | `_index/reference-apps/com.athom.homeyscript/`, `_index/reference-apps/HomeyScripts/` |
+
+## Driver Libraries
+
+| Library | Documentation | Package |
+|---------|---------------|---------|
+| Z-Wave Driver | https://athombv.github.io/node-homey-zwavedriver/ | `homey-zwavedriver` |
+| Zigbee Driver | https://athombv.github.io/node-homey-zigbeedriver/ | `homey-zigbeedriver` |
+| RF Driver | https://github.com/athombv/node-homey-rfdriver/ | `homey-rfdriver` |
+| OAuth2 App | https://github.com/athombv/node-homey-oauth2app/ | `homey-oauth2app` |
+| Homey Log | https://github.com/athombv/node-homey-log | `homey-log` |
+
+---
+
+## Rule 1: SDK Version & Manifest
+
+- Always use `"sdk": 3` in app.json for new apps
+- Set `"compatibility": ">=5.0.0"` minimum
+- Use semantic versioning for `"version"` (e.g., "1.0.0")
+- Pre-release versions (1.0.0-beta) are NOT allowed in App Store
+
+```json
+{
+  "id": "com.example.myapp",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": ["local"]
+}
+```
+
+## Rule 2: Async/Await Pattern
+
+- SDK v3 uses promises exclusively - NO callbacks
+- All lifecycle methods are async
+- Always use try/catch for error handling
+
+```javascript
+// CORRECT
+async onInit() {
+  try {
+    await this.initializeDevice();
+  } catch (error) {
+    this.error('Failed to initialize:', error);
+  }
+}
+
+// WRONG - Don't use callbacks
+onInit(callback) {
+  this.initializeDevice((err) => {
+    callback(err);
+  });
+}
+```
+
+## Rule 3: Homey API Access
+
+- Access all managers through `this.homey`
+- Never import managers directly
+
+```javascript
+// CORRECT
+this.homey.settings.get('key');
+this.homey.flow.getActionCard('id');
+this.homey.api.devices.getDevices();
+
+// WRONG
+const ManagerSettings = require('homey').ManagerSettings;
+```
+
+## Rule 4: Device Capabilities
+
+- Register capability listeners in `onInit()`
+- Use `setCapabilityValue()` to update state
+- Handle unavailable devices gracefully
+
+```javascript
+async onInit() {
+  this.registerCapabilityListener('onoff', async (value) => {
+    await this.sendCommand(value);
+  });
+}
+
+async poll() {
+  try {
+    const status = await this.fetchStatus();
+    await this.setCapabilityValue('onoff', status.isOn);
+    await this.setAvailable();
+  } catch (error) {
+    await this.setUnavailable('Device offline');
+  }
+}
+```
+
+## Rule 5: Permissions
+
+- Only request permissions you need
+- Some permissions block Homey Cloud deployment
+- Check platform before using local-only features
+
+```javascript
+// Check platform
+if (this.homey.platform === 'local') {
+  // Use local-only features (Web API, LED ring, etc.)
+}
+```
+
+### Permissions Blocking Cloud:
+- `homey:manager:api`
+- `homey:manager:ledring`
+- `homey:wireless:*`
+
+## Rule 6: Persistent Storage
+
+| Use Case | Method |
+|----------|--------|
+| App settings | `this.homey.settings.get/set()` |
+| Device credentials | `this.getStoreValue/setStoreValue()` |
+| User preferences | Device settings (in manifest) |
+| Large/binary files | Userdata folder |
+
+```javascript
+// App settings
+this.homey.settings.set('apiKey', key);
+
+// Device store (persists across restarts)
+await this.setStoreValue('token', accessToken);
+const token = this.getStoreValue('token');
+```
+
+## Rule 7: Flow Cards
+
+- Define in app.json or `.homeycompose/flow/`
+- Register run listeners in `onInit()`
+- Use `titleFormatted` with `[[arg]]` placeholders
+
+```javascript
+async onInit() {
+  const action = this.homey.flow.getActionCard('my_action');
+  action.registerRunListener(async (args) => {
+    await this.performAction(args.value);
+  });
+}
+```
+
+## Rule 8: Driver Pairing
+
+- Return devices with unique `data.id`
+- Include discovery logic in `onPairListDevices()`
+
+```javascript
+async onPairListDevices() {
+  const discovered = await this.discover();
+  return discovered.map(d => ({
+    name: d.name,
+    data: { id: d.uniqueId },
+    settings: { ip: d.ip }
+  }));
+}
+```
+
+## Rule 9: Error Handling
+
+- Use `this.log()` for info, `this.error()` for errors
+- Throw user-friendly errors in flow cards
+- Set device unavailable on connection errors
+
+```javascript
+async onCapability(value) {
+  try {
+    await this.sendCommand(value);
+  } catch (error) {
+    this.error('Command failed:', error);
+    throw new Error('Could not reach device');
+  }
+}
+```
+
+## Rule 10: Widgets (Homey Pro only)
+
+- Requires `"compatibility": ">=12.3.0"`
+- Only on `"platforms": ["local"]`
+- Use CSS variables for theming
+- Call `Homey.ready()` when initialized
+
+## Rule 11: Web API (Homey Pro only)
+
+- Define endpoints in app.json `api` section
+- Implement handlers in `api.js`
+- Keep endpoints private by default
+
+## Rule 12: Wireless Protocols
+
+| Protocol | Permission | Package |
+|----------|------------|---------|
+| Wi-Fi | none | Native HTTP |
+| Zigbee | `homey:wireless:zigbee` | `homey-zigbeedriver` |
+| Z-Wave | `homey:wireless:zwave` | `homey-zwavedriver` |
+| BLE | `homey:wireless:ble` | Native BLE |
+| 433 MHz | `homey:wireless:433` | Native RF |
+| IR | `homey:wireless:ir` | Native IR |
+| Matter | none | Native Matter |
+
+---
+
+## Important Issues Index
+
+### Issue: Upgrading from SDK v2
+- Callbacks removed, use async/await
+- Manager access via `this.homey.*`
+- See: `_index/docs/upgrade-guides/sdk-v3.md`
+
+### Issue: Homey Cloud Constraints
+- No Web API or Widgets
+- No wireless (Z-Wave, Zigbee, etc.)
+- Limited permissions
+- See: `_index/docs/cloud/index.md`
+
+### Issue: Device Discovery
+- Use mDNS-SD, SSDP, or MAC-based discovery
+- Define strategies in driver manifest
+- Handle device unavailability
+- See: `_index/docs/wireless/wifi.md`
+
+### Issue: Node.js Version
+- Current: Node.js 22 for latest Homey
+- Use `"compatibility"` to ensure compatibility
+- Avoid deprecated Node.js APIs
+- See: `_index/docs/upgrade-guides/nodejs-22.md`
+
+### Issue: Device Pairing
+- Unique `data.id` is CRITICAL - never changes
+- Use `store` for sensitive data, not `settings`
+- See: `_index/docs/the-basics/devices/pairing.md`
+
+### Issue: Flow Card Arguments
+- Use autocomplete for dynamic values
+- Register handlers in `onInit()`
+- See: `_index/docs/the-basics/flow/arguments.md`
+
+---
+
+## Code Templates
+
+### Basic App (app.js)
+```javascript
+'use strict';
+const Homey = require('homey');
+
+class MyApp extends Homey.App {
+  async onInit() {
+    this.log('App initialized');
+  }
+}
+
+module.exports = MyApp;
+```
+
+### Basic Driver (driver.js)
+```javascript
+'use strict';
+const Homey = require('homey');
+
+class MyDriver extends Homey.Driver {
+  async onInit() {
+    this.log('Driver initialized');
+  }
+
+  async onPairListDevices() {
+    return [];
+  }
+}
+
+module.exports = MyDriver;
+```
+
+### Basic Device (device.js)
+```javascript
+'use strict';
+const Homey = require('homey');
+
+class MyDevice extends Homey.Device {
+  async onInit() {
+    this.log('Device initialized');
+    this.registerCapabilityListener('onoff', this.onCapabilityOnoff.bind(this));
+  }
+
+  async onCapabilityOnoff(value) {
+    this.log('onoff:', value);
+  }
+}
+
+module.exports = MyDevice;
+```
+
+### Zigbee Device
+```javascript
+'use strict';
+const { ZigBeeDevice } = require('homey-zigbeedriver');
+const { CLUSTER } = require('zigbee-clusters');
+
+class MyZigbeeDevice extends ZigBeeDevice {
+  async onNodeInit({ zclNode }) {
+    this.registerCapability('onoff', CLUSTER.ON_OFF);
+  }
+}
+
+module.exports = MyZigbeeDevice;
+```
+
+### Z-Wave Device
+```javascript
+'use strict';
+const { ZwaveDevice } = require('homey-zwavedriver');
+
+class MyZwaveDevice extends ZwaveDevice {
+  async onNodeInit() {
+    this.registerCapability('onoff', 'SWITCH_BINARY');
+  }
+}
+
+module.exports = MyZwaveDevice;
+```
+
+### API Endpoint (api.js)
+```javascript
+'use strict';
+
+module.exports = {
+  async getStatus({ homey }) {
+    return { status: 'ok' };
+  },
+  
+  async postUpdate({ homey, body }) {
+    homey.settings.set('lastUpdate', body.data);
+    return { success: true };
+  }
+};
+```
+
+---
+
+## Common Patterns & Anti-Patterns
+
+### ✅ CORRECT Patterns
+
+```javascript
+// Accessing Homey managers
+this.homey.settings.get('key');
+this.homey.flow.getActionCard('id');
+this.homey.images.createImage();
+
+// Async/await everywhere
+async onInit() {
+  await this.setupDevice();
+}
+
+// Capability handling
+this.registerCapabilityListener('onoff', async (value) => {
+  await this.device.setPower(value);
+});
+
+// Error handling with availability
+try {
+  const data = await this.fetchData();
+  await this.setCapabilityValue('measure_temperature', data.temp);
+  await this.setAvailable();
+} catch (error) {
+  this.error('Fetch failed:', error);
+  await this.setUnavailable('Connection failed');
+}
+
+// Unique device ID in pairing
+return { data: { id: device.serialNumber } };
+
+// Store for credentials
+await this.setStoreValue('token', accessToken);
+```
+
+### ❌ WRONG Patterns (Never Use)
+
+```javascript
+// DON'T import managers directly (SDK v2 style)
+const ManagerSettings = require('homey').ManagerSettings;  // WRONG!
+
+// DON'T use callbacks (SDK v2 style)
+onInit(callback) { callback(); }  // WRONG!
+
+// DON'T forget async/await
+this.setCapabilityValue('onoff', true);  // WRONG - missing await!
+
+// DON'T store credentials in settings (visible to user)
+await this.setSettings({ token: secret });  // WRONG - use setStoreValue!
+
+// DON'T use non-unique device IDs
+return { data: { id: '1' } };  // WRONG - must be unique!
+
+// DON'T ignore errors
+await this.sendCommand(value);  // WRONG - wrap in try/catch!
+```
+
+---
+
+## File Structure Reference
+
+```
+my-homey-app/
+├── .homeycompose/           # Compose files (optional)
+│   ├── app.json             # Base manifest
+│   ├── capabilities/        # Custom capabilities
+│   └── flow/                # Flow cards
+│       ├── triggers/
+│       ├── conditions/
+│       └── actions/
+├── app.js                   # Main app class
+├── app.json                 # App manifest (generated if using compose)
+├── api.js                   # Web API endpoints (optional)
+├── assets/                  # App images
+│   └── images/
+│       ├── small.png        # 250x175
+│       ├── large.png        # 500x350
+│       └── xlarge.png       # 1000x700
+├── drivers/                 # Device drivers
+│   └── my-driver/
+│       ├── driver.js        # Driver class
+│       ├── device.js        # Device class
+│       ├── driver.compose.json
+│       ├── pair/            # Custom pairing views
+│       └── assets/
+│           └── icon.svg     # Driver icon
+├── locales/                 # Translations
+│   ├── en.json              # English (required)
+│   └── nl.json              # Dutch
+├── settings/                # App settings view (optional)
+│   └── index.html
+├── widgets/                 # Dashboard widgets (optional)
+│   └── my-widget/
+│       ├── widget.compose.json
+│       ├── public/
+│       │   └── index.html
+│       └── preview.png
+└── package.json             # NPM dependencies
+```
+
+---
+
+## Capability Quick Reference
+
+### Most Common Capabilities
+| Capability | Type | Description |
+|------------|------|-------------|
+| `onoff` | boolean | On/off state |
+| `dim` | number (0-1) | Brightness |
+| `measure_temperature` | number | Temperature (°C) |
+| `measure_power` | number | Power usage (W) |
+| `measure_battery` | number (0-100) | Battery % |
+| `alarm_motion` | boolean | Motion detected |
+| `alarm_contact` | boolean | Door/window open |
+| `target_temperature` | number | Thermostat target |
+
+For full list: See `_index/docs/api-reference/device-capabilities.md`
+
+---
+
+## Manifest Quick Reference
+
+### Minimum Required Manifest
+```json
+{
+  "id": "com.company.appname",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": ["local"],
+  "name": { "en": "App Name" },
+  "description": { "en": "Description" },
+  "category": ["tools"]
+}
+```
+
+### Platform Values
+- `["local"]` - Homey Pro only
+- `["cloud"]` - Homey Cloud only
+- `["local", "cloud"]` - Both platforms

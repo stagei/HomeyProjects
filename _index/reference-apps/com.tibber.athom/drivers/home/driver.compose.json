@@ -1,0 +1,61 @@
+{
+  "name": {
+    "en": "Home"
+  },
+  "platforms": ["local", "cloud"],
+  "connectivity": ["cloud"],
+  "capabilities": [
+    "measure_price_total",
+    "measure_price_info_level",
+    "measure_price_lowest",
+    "measure_price_highest"
+  ],
+  "capabilitiesOptions": {
+    "measure_price_total": {
+      "decimals": 2,
+      "preventInsights": true
+    }
+  },
+  "class": "other",
+  "pair": [
+    {
+      "id": "loading",
+      "template": "loading",
+      "navigation": {
+        "next": "login_oauth2"
+      }
+    },
+    {
+      "id": "login_oauth2",
+      "template": "login_oauth2"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "images": {
+    "large": "/drivers/home/assets/images/large.png",
+    "small": "/drivers/home/assets/images/small.png"
+  },
+  "settings": [
+    {
+      "id": "enable_consumption_report",
+      "type": "checkbox",
+      "label": {
+        "en": "Enable non-realtime consumption reporting"
+      },
+      "hint": {
+        "en": "Enable periodical fetch of Tibber consumption data to Homey Insights. Periodical fetch produces a lot of traffic towards Tibber API so enable only if needed."
+      },
+      "value": false
+    }
+  ]
+}

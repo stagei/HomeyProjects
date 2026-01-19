@@ -1,0 +1,95 @@
+{
+  "0.3.0": {
+    "en": "Login with HP23 API-key."
+  },
+  "0.3.1": {
+    "en": "Login with online Athom signin."
+  },
+  "0.6.0": {
+    "en": "Add dashboard device."
+  },
+  "0.6.4": {
+    "en": "Hide options for non HP23 users."
+  },
+  "0.7.0": {
+    "en": "Refactored UI, add support for multiple Homeys, and support multiple insights in same graph."
+  },
+  "0.8.0": {
+    "en": "Use 24h format for Charts, add view for all implemented capabilities, emphasize device/capability/insight/flow picker buttons, round insight values to log decimals."
+  },
+  "0.8.1": {
+    "en": "Fixed thermostat mode issue, capability last updated, and insight null values."
+  },
+  "0.9.0": {
+    "en": "Refactored editing UI to fix scrolling on mobile devices."
+  },
+  "0.9.1": {
+    "en": "Fix dragging widgets on mobile devices."
+  },
+  "0.10.0": {
+    "en": "Added dashboard link widget."
+  },
+  "0.10.2": {
+    "en": "Fix exception when selecting device."
+  },
+  "0.11.2": {
+    "en": "Added Slider widget, custom insight colors and override titles."
+  },
+  "0.12.0": {
+    "en": "Mix devices and capabilities, custom cards and views."
+  },
+  "0.12.1": {
+    "en": "Fix controlling capabilities and editing dashboard links."
+  },
+  "0.12.2": {
+    "en": "Fix insights crashing when resolving owner name, and auto-adjust height when displayed as card."
+  },
+  "0.12.3": {
+    "en": "Fixes Insight picker get owner name."
+  },
+  "0.13.0": {
+    "en": "Add widget for logic variables and dashboard background image."
+  },
+  "0.13.1": {
+    "en": "Fixes missing view icons."
+  },
+  "0.13.2": {
+    "en": "Fixes exception when selecting an unconfigured variable and insights migration."
+  },
+  "0.14.0": {
+    "en": "Add iframe widget, add logout button and add stepped insights for boolean values."
+  },
+  "0.14.1": {
+    "en": "Fix Slider widget editor after combining CapabilityPicker."
+  },
+  "0.15.0": {
+    "en": "Add insight thresholds, variable variants and bug fixes."
+  },
+  "0.15.1": {
+    "en": "Fix selection not cleard while deleting widget."
+  },
+  "0.15.2": {
+    "en": "Restore variable widget leading icon."
+  },
+  "0.15.3": {
+    "en": "Fix selecting view editing mode."
+  },
+  "0.15.4": {
+    "en": "Add option to login with .local and add attempt for auto-refresh."
+  },
+  "1.0.0": {
+    "en": "Initial public release with dashboards and templates"
+  },
+  "1.1.0": {
+    "en": "Refactor editing mode and add support for cut/copy/paste widgets"
+  },
+  "1.2.0": {
+    "en": "Add \"Add\" button to open widget type dialog. This allows for adding without using drag & drop."
+  },
+  "1.2.1": {
+    "en": "Fixed insight unresponsive bug and insight invalid gradient color when base should not be visible"
+  },
+  "1.3.0": {
+    "en": "Added readonly widget for disabling all child widgets."
+  }
+}

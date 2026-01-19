@@ -1,0 +1,731 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.samsung.smart",
+  "version": "2.1.0",
+  "compatibility": ">=8.1.2",
+  "sdk": 3,
+  "brandColor": "#206ADF",
+  "name": {
+    "en": "Samsung SmartTV"
+  },
+  "description": {
+    "en": "Control your Samsung SmartTV"
+  },
+  "category": [
+    "video"
+  ],
+  "tags": {
+    "en": [
+      "samsung",
+      "smarttv",
+      "tv"
+    ]
+  },
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "permissions": [],
+  "author": {
+    "name": "Bjørnar Almli",
+    "email": "bjornar.almli@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Bjørnar Almli",
+        "email": "bjornar.almli@gmail.com"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "bjornaralmli"
+      }
+    }
+  },
+  "homeyCommunityTopicId": 10019,
+  "flow": {
+    "conditions": [
+      {
+        "id": "is_app_running",
+        "title": {
+          "en": "Is app !{{running|not running}}"
+        },
+        "titleFormatted": {
+          "en": "Is app [[app_id]] !{{running|not running}}"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted"
+          },
+          {
+            "name": "app_id",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Search for app..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "is_power_onoff",
+        "title": {
+          "en": "Power on/off !{{is|is not}} in progress"
+        },
+        "titleFormatted": {
+          "en": "Power on/off !{{is|is not}} in progress"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted|SamsungLegacy"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "browse",
+        "title": {
+          "en": "Launch browser"
+        },
+        "titleFormatted": {
+          "en": "Launch browser on [[url]]"
+        },
+        "hint": {
+          "en": "Use this action to launch the browser. Not all TVs support this action."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung"
+          },
+          {
+            "name": "url",
+            "type": "text",
+            "title": {
+              "en": "URL"
+            }
+          }
+        ]
+      },
+      {
+        "id": "change_channel",
+        "title": {
+          "en": "Change channel"
+        },
+        "titleFormatted": {
+          "en": "Change channel to [[channel]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted|SamsungLegacy"
+          },
+          {
+            "name": "channel",
+            "type": "number",
+            "min": 1,
+            "max": 9999,
+            "step": 1,
+            "title": {
+              "en": "Channel"
+            }
+          }
+        ]
+      },
+      {
+        "id": "close_app",
+        "title": {
+          "en": "Close app"
+        },
+        "titleFormatted": {
+          "en": "Close app [[app_id]]"
+        },
+        "hint": {
+          "en": "Use this action to close a running app."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted"
+          },
+          {
+            "name": "app_id",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Search for app..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "launch_app",
+        "title": {
+          "en": "Launch app"
+        },
+        "titleFormatted": {
+          "en": "Launch app [[app_id]]"
+        },
+        "hint": {
+          "en": "Use this action to launch an app. In order to start the app, it must be installed on the TV."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted"
+          },
+          {
+            "name": "app_id",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Search for app..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "send_key",
+        "title": {
+          "en": "Send key"
+        },
+        "titleFormatted": {
+          "en": "Send key [[key]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted|SamsungLegacy"
+          },
+          {
+            "name": "key",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Search for key..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "send_keys",
+        "title": {
+          "en": "Send list of keys"
+        },
+        "titleFormatted": {
+          "en": "Send list of keys [[keys1]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted|SamsungLegacy"
+          },
+          {
+            "name": "keys1",
+            "type": "text",
+            "title": {
+              "en": "List of keys"
+            }
+          }
+        ]
+      },
+      {
+        "id": "set_input_source",
+        "title": {
+          "en": "Set input source"
+        },
+        "titleFormatted": {
+          "en": "Set input source to [[input_source]]"
+        },
+        "hint": {
+          "en": "Use this action to select the input source (HDMI1, HDMI2, etc.). It requires that the SmartThings API has been enabled in Adv. settings."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung"
+          },
+          {
+            "name": "input_source",
+            "type": "autocomplete",
+            "placeholder": {
+              "en": "Input source..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "set_power_state",
+        "title": {
+          "en": "Set power state"
+        },
+        "titleFormatted": {
+          "en": "Set power state to [[power_state]]"
+        },
+        "hint": {
+          "en": "Use this to override the polling of the power state, eg. if you use a wall plug to check if the TV is on or off."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung"
+          },
+          {
+            "name": "power_state",
+            "title": {
+              "en": "Power state"
+            },
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "off",
+                "label": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "on",
+                "label": {
+                  "en": "On"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "youtube",
+        "title": {
+          "en": "Launch video on YouTube"
+        },
+        "titleFormatted": {
+          "en": "Launch video [[videoId]] on YouTube"
+        },
+        "hint": {
+          "en": "Use this action to launch YouTube. Not all TVs support this action."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=Samsung|SamsungEncrypted"
+          },
+          {
+            "name": "videoId",
+            "type": "text",
+            "title": {
+              "en": "Provide the YouTube video id"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "icon": "/drivers/Samsung/assets/icon.svg",
+      "images": {
+        "large": "/drivers/Samsung/assets/images/large.png",
+        "small": "/drivers/Samsung/assets/images/small.png"
+      },
+      "class": "tv",
+      "capabilities": [
+        "onoff",
+        "volume_up",
+        "channel_up",
+        "volume_down",
+        "channel_down",
+        "volume_mute"
+      ],
+      "id": "Samsung",
+      "name": {
+        "en": "Samsung"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "ip_address"
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General settings"
+          },
+          "children": [
+            {
+              "id": "ipaddress",
+              "type": "text",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "",
+              "hint": {
+                "en": "Reserve an IP address for the TV in your network / Wi-Fi router. "
+              }
+            },
+            {
+              "id": "tokenAuthSupport",
+              "type": "checkbox",
+              "label": {
+                "en": "Secure connection"
+              },
+              "value": false
+            },
+            {
+              "id": "frameTVSupport",
+              "type": "checkbox",
+              "label": {
+                "en": "Frame TV support"
+              },
+              "value": false
+            },
+            {
+              "id": "poll_interval",
+              "type": "number",
+              "min": 0,
+              "max:": 1000,
+              "step": 1,
+              "label": {
+                "en": "Polling interval for TV status (s)"
+              },
+              "value": 10
+            },
+            {
+              "id": "power_state_polling",
+              "type": "checkbox",
+              "label": {
+                "en": "Power state polling"
+              },
+              "value": true,
+              "hint": {
+                "en": "Uncheck if you set the power state manually with the 'Set power state' action card."
+              }
+            },
+            {
+              "id": "max_volume",
+              "type": "number",
+              "label": {
+                "en": "Max volume"
+              },
+              "value": 30,
+              "min": 1,
+              "max": 100,
+              "hint": {
+                "en": "Max. volume level"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Timing"
+          },
+          "children": [
+            {
+              "id": "delay_keys",
+              "type": "number",
+              "min": 1,
+              "max:": 5000,
+              "step": 1,
+              "label": {
+                "en": "Delay between keys (ms)"
+              },
+              "value": 100
+            },
+            {
+              "id": "delay_channel_keys",
+              "type": "number",
+              "min": 1,
+              "max:": 5000,
+              "step": 1,
+              "label": {
+                "en": "Delay between channel keys (ms)"
+              },
+              "value": 1250
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "SmartThings"
+          },
+          "children": [
+            {
+              "id": "smartthings",
+              "type": "checkbox",
+              "label": {
+                "en": "SmartThings API"
+              },
+              "value": false,
+              "hint": {
+                "en": "Check this to enable the SmartThings API.  Your TV must be logged on to your Samsung account."
+              }
+            },
+            {
+              "id": "smartthings_token",
+              "type": "text",
+              "label": {
+                "en": "API Token"
+              },
+              "value": "",
+              "hint": {
+                "en": "Obtain an API key from https://account.smartthings.com/tokens."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "icon": "/drivers/SamsungEncrypted/assets/icon.svg",
+      "images": {
+        "large": "/drivers/SamsungEncrypted/assets/images/large.png",
+        "small": "/drivers/SamsungEncrypted/assets/images/small.png"
+      },
+      "class": "tv",
+      "capabilities": [
+        "onoff",
+        "volume_up",
+        "channel_up",
+        "volume_down",
+        "channel_down",
+        "volume_mute"
+      ],
+      "id": "SamsungEncrypted",
+      "name": {
+        "en": "Samsung (encrypted)"
+      },
+      "pair": [
+        {
+          "id": "ip_address"
+        },
+        {
+          "id": "pin_wait",
+          "template": "loading"
+        },
+        {
+          "id": "set_pin_code",
+          "template": "pincode",
+          "options": {
+            "type": "number"
+          },
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_my_devices"
+          }
+        },
+        {
+          "id": "add_my_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General settings"
+          },
+          "children": [
+            {
+              "id": "ipaddress",
+              "type": "label",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "",
+              "hint": {
+                "en": "Reserve an IP address for the TV in your network / Wi-Fi router. "
+              }
+            },
+            {
+              "id": "poll_interval",
+              "type": "number",
+              "min": 0,
+              "max:": 1000,
+              "step": 1,
+              "label": {
+                "en": "Polling interval for TV status (s)"
+              },
+              "value": 10
+            },
+            {
+              "id": "max_volume",
+              "type": "number",
+              "label": {
+                "en": "Max volume"
+              },
+              "value": 30,
+              "min": 1,
+              "max": 100,
+              "hint": {
+                "en": "Max. volume level"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Timing"
+          },
+          "children": [
+            {
+              "id": "delay_keys",
+              "type": "number",
+              "min": 1,
+              "max:": 5000,
+              "step": 1,
+              "label": {
+                "en": "Delay between keys (ms)"
+              },
+              "value": 100
+            },
+            {
+              "id": "delay_channel_keys",
+              "type": "number",
+              "min": 1,
+              "max:": 5000,
+              "step": 1,
+              "label": {
+                "en": "Delay between channel keys (ms)"
+              },
+              "value": 1250
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "icon": "/drivers/SamsungLegacy/assets/icon.svg",
+      "images": {
+        "large": "/drivers/SamsungLegacy/assets/images/large.png",
+        "small": "/drivers/SamsungLegacy/assets/images/small.png"
+      },
+      "class": "tv",
+      "capabilities": [
+        "onoff",
+        "volume_up",
+        "channel_up",
+        "volume_down",
+        "channel_down",
+        "volume_mute"
+      ],
+      "id": "SamsungLegacy",
+      "name": {
+        "en": "Samsung (legacy)"
+      },
+      "pair": [
+        {
+          "id": "ip_address"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "General settings"
+          },
+          "children": [
+            {
+              "id": "ipaddress",
+              "type": "text",
+              "label": {
+                "en": "IP address"
+              },
+              "value": "",
+              "hint": {
+                "en": "Reserve an IP address for the TV in your network / Wi-Fi router. "
+              }
+            },
+            {
+              "id": "poll_interval",
+              "type": "number",
+              "min": 0,
+              "max:": 1000,
+              "step": 1,
+              "label": {
+                "en": "Polling interval for TV status (s)"
+              },
+              "value": 10
+            },
+            {
+              "id": "max_volume",
+              "type": "number",
+              "label": {
+                "en": "Max volume"
+              },
+              "value": 30,
+              "min": 1,
+              "max": 100,
+              "hint": {
+                "en": "Max. volume level"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Timing"
+          },
+          "children": [
+            {
+              "id": "delay_keys",
+              "type": "number",
+              "min": 1,
+              "max:": 5000,
+              "step": 1,
+              "label": {
+                "en": "Delay between keys (ms)"
+              },
+              "value": 100
+            },
+            {
+              "id": "delay_channel_keys",
+              "type": "number",
+              "min": 1,
+              "max:": 5000,
+              "step": 1,
+              "label": {
+                "en": "Delay between channel keys (ms)"
+              },
+              "value": 1250
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

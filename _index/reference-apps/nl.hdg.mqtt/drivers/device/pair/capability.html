@@ -1,0 +1,198 @@
+<link rel="stylesheet" type="text/css" href="../../../assets/styles.css" />
+<link rel="stylesheet" type="text/css" href="./styles.css" />
+<script src='../../../assets/vue.min.js'></script>
+<script src='../../../assets/lodash.min.js'></script>
+<script src='../../../assets/utils.js'></script>
+<script>
+    
+    Homey.setTitle(__('pair.title.capability'));
+    
+    new Vue({
+        el: '#capability',
+        data: {
+            edit: false,
+            capability: undefined,
+            capabilityId: undefined,
+            displayName: undefined,
+            capabilities: undefined,
+            sorted: undefined,
+            stateTopic: '',
+            setTopic: '',
+            valueTemplate: '',
+            outputTemplate: ''
+        },
+        methods: {
+            save(data) {
+                if(!data) return;
+
+                Homey.emit('setCapability', data, (err, result) => {
+                    console.log('setCapability', err || result);
+                    if(result) {
+                        if(this.displayName !== result.displayName) {
+                            this.displayName = this.displayName;
+                        }
+                        if(this.capabilityId !== result.capabilityId) {
+                            this.capabilityId = result.capabilityId;
+                        }
+                    }
+                });
+            },
+            model() {
+                return { 
+                    capability: this.capability,
+                    capabilityId: this.capabilityId,
+                    displayName: this.displayName,
+                    stateTopic: this.stateTopic,
+                    setTopic: this.setTopic,
+                    valueTemplate: this.valueTemplate,
+                    outputTemplate: this.outputTemplate
+                }
+            },
+            unit(capability, expandEnum) {
+                if(capability.units && capability.units.en) return capability.units.en;
+                switch(capability.type) {
+                    case 'string': return 'text';
+                    case 'boolean': return 'true | false';
+                    case 'enum': return expandEnum ? capability.values.map(v => v.id).join(' | ') : 'enum';
+                    default: return capability.type;
+                }
+            },
+            getDisplayType(capability) {
+                switch(capability.type) {
+                    case 'enum': return "enum: " + capability.values.map(v => v.id).join(' | ');
+                    default: return capability.type;
+                }
+            }
+        },
+        watch: {
+            capability(val) {
+                this.save({ ...this.model(), capability: val});
+            },
+            stateTopic(val) {
+                this.save({ ...this.model(), stateTopic: val});
+            },
+            setTopic(val) {
+                this.save({ ...this.model(), setTopic: val});
+            },
+            displayName(val) {
+                this.save({ ...this.model(), displayName: val});
+            },
+            valueTemplate(val) {
+                this.save({ ...this.model(), valueTemplate: val});
+            },
+            outputTemplate(val) {
+                this.save({ ...this.model(), outputTemplate: val});
+            }
+        },
+        mounted() {
+            Homey.emit('capabilities', { filter: false }, (err, result) => {
+                this.capabilities = result;
+                const lang = 'en';
+                this.sorted = Object.keys(result)
+                    .sort((a, b) => sortByTitle(result[a], result[b], lang))
+                    .map(key => { 
+                        const capability = result[key];
+                        return { 
+                            id: key, 
+                            capability: capability,
+                            title: capability.title.en,
+                            unit: this.unit(capability)
+                        }; 
+                    }
+                );
+            });
+            Homey.emit('capability', true, (err, result) => { 
+                console.log('editing', err || result);
+                if(result) {
+                    Homey.setTitle(__('pair.title.edit_capability'));
+
+                    this.edit = true;
+                    this.capability = result.capability;
+                    this.capabilityId = result.capabilityId;
+                    this.displayName = result.displayName;
+                    this.stateTopic = result.stateTopic;
+                    this.setTopic = result.setTopic;
+                    this.valueTemplate = result.valueTemplate;
+                    this.outputTemplate = result.outputTemplate;
+                }
+            });
+        },
+    });
+</script>
+
+<div id="capability" v-if="capabilities">
+    <div class="setting">
+        <label class="settings-item-description">{{__('pair.select.capability')}}</label>
+        <div class="settings-itemgroup">
+            <select v-model="capability" v-if="capabilities">
+                <option :value="item.id" v-for="item of sorted">
+                    {{item.title}} ({{item.unit}})
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="setting" v-if="capability">
+        <label class="settings-item-description">{{__('pair.select.capability_details')}}</label>
+        <div class="settings-itemgroup capability-details">
+            <div>
+                <span class="details-label">id:</span><span class="details-value">{{capability}}</span>
+            </div>
+            <div>
+                <span class="details-label">type:</span><span class="details-value">{{getDisplayType(capabilities[capability])}}</span>
+            </div>
+            <div v-if="capabilities[capability].hasOwnProperty('min')">
+                <span class="details-label">min:</span><span class="details-value">{{capabilities[capability].min}}</span>
+            </div>
+            <div v-if="capabilities[capability].hasOwnProperty('max')">
+                <span class="details-label">max:</span><span class="details-value">{{capabilities[capability].max}}</span>
+            </div>
+            <div v-if="capabilities[capability].hasOwnProperty('decimals')">
+                <span class="details-label">decimals:</span><span class="details-value">{{capabilities[capability].decimals}}</span>
+            </div>
+            <div v-if="capabilities[capability].desc">
+                <span class="details-label">description:</span><span class="details-value">{{capabilities[capability].desc.en}}</span>
+            </div>
+            <!-- <div><span class="details-label">value:      </span><span class="details-value">{{unit(capabilities[capability], true)}}</span></div> -->
+        </div>
+    </div>
+
+    <div class="setting" v-if="capability">
+        <label class="settings-item-description">{{__('pair.default.topic.name')}}</label>
+        <div class="settings-itemgroup">
+            <input type="text" v-model="displayName">
+        </div>
+    </div>
+
+    <div class="section" v-if="capability && capabilities[capability].getable">
+        <h3 class="sub-header">{{__('pair.default.topic.input')}}</h3>
+        <div class="setting" >
+            <label class="settings-item-description">{{__('pair.default.topic.state')}}</label>
+            <div class="settings-itemgroup">
+                <input type="text" v-model="stateTopic">
+            </div>
+        </div>
+        <div class="setting">
+            <label class="settings-item-description">{{__('pair.default.topic.value_template')}}</label>
+            <div class="settings-itemgroup">
+                <input type="text" v-model="valueTemplate">
+            </div>
+        </div>
+    </div>
+
+    <div class="section" v-if="capability && capabilities[capability].setable">
+        <h3 class="sub-header">{{__('pair.default.topic.output')}}</h3>
+        <div class="setting">
+            <label class="settings-item-description">{{__('pair.default.topic.set')}}</label>
+            <div class="settings-itemgroup">
+                <input type="text" v-model="setTopic">
+            </div>
+        </div>
+        <div class="setting">
+            <label class="settings-item-description">{{__('pair.default.topic.output_template')}}</label>
+            <div class="settings-itemgroup">
+                <input type="text" v-model="outputTemplate">
+            </div>
+        </div>
+    </div>
+
+</div>

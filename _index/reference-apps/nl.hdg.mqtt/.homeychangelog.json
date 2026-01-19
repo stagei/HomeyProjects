@@ -1,0 +1,86 @@
+{
+  "3.0.0": {
+    "en": "Upgrade to SDK v3 + bug fixes + added broadcast flowcard trigger "
+  },
+  "3.0.1": {
+    "en": "MQTT Device improvements"
+  },
+  "3.0.2": {
+    "en": "Fix for HA cover discovery (Fibaro shutters)"
+  },
+  "3.0.3": {
+    "en": "MQTT device topic lister fix"
+  },
+  "3.1.0": {
+    "en": "MQTT Device: Handling of JSON input & output message formats"
+  },
+  "3.1.1": {
+    "en": "Fix for publishing '0' and 'false' payloads"
+  },
+  "3.1.2": {
+    "en": "Brand color"
+  },
+  "3.1.3": {
+    "en": "Changed default HA status topic to: homeassistant/status"
+  },
+  "3.1.4": {
+    "en": "Homey library update"
+  },
+  "3.1.5": {
+    "en": "Homey library update + changed HA default status topic"
+  },
+  "3.1.6": {
+    "en": "Extended logging"
+  },
+  "3.1.7": {
+    "en": "Skip messages not meant for the HUB"
+  },
+  "3.1.8": {
+    "en": "Resolved HA Entity names"
+  },
+  "3.1.9": {
+    "en": "Reverted name change"
+  },
+  "3.2.0": {
+    "en": "Unsubscribe from topics"
+  },
+  "3.3.0": {
+    "en": "Additional MQTT Device configuration options"
+  },
+  "3.3.1": {
+    "en": "MQTT Device improvements"
+  },
+  "3.3.2": {
+    "en": "Color temperature fix"
+  },
+  "3.3.3": {
+    "en": "HA Discovery color temperature fix"
+  },
+  "3.4.0": {
+    "en": "MQTT Device: value template math expressions"
+  },
+  "3.4.1": {
+    "en": " MQTT Device: output template math expressions"
+  },
+  "3.4.2": {
+    "en": "MQTT Device: Display capability details"
+  },
+  "3.5.0": {
+    "en": "MQTT Device icons"
+  },
+  "3.5.1": {
+    "en": "MQTT Device icons"
+  },
+  "3.5.2": {
+    "en": "General improvements"
+  },
+  "3.5.3": {
+    "en": "MQTT Device improvements"
+  },
+  "3.5.4": {
+    "en": "MQTT Device improvements"
+  },
+  "3.5.5": {
+    "en": "MQTT Device improvements"
+  }
+}

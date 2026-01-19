@@ -1,0 +1,120 @@
+<div id="error" style="display:none;">
+	<p data-i18n="manager.drivers.www.window_close"></p>
+</div>
+
+<div id="rc-pins-form-container" style="display:none;"></div>
+
+<script type="text/html" id="rc-pins-form-template">
+	<form id="rc-pins-form">
+		{{:information}}
+		<br />
+		<table style="width: 100%">{{:pins}}</table>
+	</form>
+</script>
+
+<script type="text/javascript">
+	Homey.setTitle( __('pair.rc.pins.title') );
+	var bselect = document.getElementById("rc-board-form").elements['boardType'];
+	var folder = bselect.value;
+	var name = bselect[bselect.selectedIndex].text;
+
+	window.rcApply = true;
+	window.rcBoardFolder = folder;
+	window.rcBoardName = name;
+
+	console.log("Loading board json...");
+	$.getJSON('rc/'+folder+'/board.json').done(function(data) {
+		console.log("Got board.json");
+		var pins = renderPins(data.pins);
+		window.rcBoardInfo = data;
+		var form = {
+			"information": __('pair.rc.pins.info').replace('%name%', name),
+			"pins": pins
+		};
+		var form_render = $('#rc-pins-form-template').render([form]);
+		$('div#rc-pins-form-container').html(form_render);
+		console.log("Form: ",form_render);
+		$('div#rc-pins-form-container').show();
+		console.log("DONE");
+		hideLoading();
+	}).fail(function(jqxhr, textStatus, error) {
+		Homey.setTitle( __('pair.rc.pins.jsonError.title') );
+		var error = '<p>'+__('pair.rc.pins.jsonError.message')+'</p>';
+		$('div#error').prepend(error);
+		$('div#error').show();
+		hideLoading();
+		Homey.setNavigationClose();
+	});
+
+function modeName(mode) {
+	return __('pair.rc.pins.mode.'+mode);
+}
+
+function renderPins(pins) {
+	var ioSettings = "<tr><td>Pin</td><td>Name</td><td>Mode</td></tr>";
+	for (var key in pins) {
+		var pin = pins[key];
+		ioSettings += "<tr><td>"+pin.name+"</td><td>";
+
+		if (typeof pin.notAvailable != 'undefined') {
+			ioSettings += "&nbsp;";
+		} else {
+			ioSettings += "<input type='text' size='8' name='pin-"+pin.name+"-name' value='pin"+pin.name+"'/>";
+		}
+
+		ioSettings += "</td><td>";
+
+		if (typeof pin.modes != 'undefined') {
+			ioSettings += "<select name='pin-"+pin.name+"'>";
+			var selected = ' selected';
+			for (var modeKey in pin.modes) {
+				var mode = pin.modes[modeKey];
+				ioSettings += "<option value='"+mode+"'"+selected+">"+modeName(mode)+"</option>";
+				selected = ''; //Only the first item is selected by default
+			}
+			ioSettings += "</select>";
+		}
+
+		if (typeof pin.notAvailable != 'undefined') {
+			ioSettings += "<i>"+pin.notAvailable+"</i>";
+		}
+
+		if (typeof pin.range != 'undefined') {
+			ioSettings += "<input type='hidden' name='pin-"+pin.name+"-range' value='"+JSON.stringify(pin.range)+"'/>";
+		}
+
+		ioSettings += "</td></tr>";
+	}
+	return ioSettings;
+}
+
+
+
+function openFile(url, timeout, callback) {
+    var args = Array.prototype.slice.call(arguments, 3);
+    var xhr = new XMLHttpRequest();
+    xhr.ontimeout = function () {
+        console.error("The request for " + url + " timed out.");
+        callback("The request for " + url + " timed out.", null);
+    };
+    xhr.onload = () => {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+				console.log("openFile("+url+"): OK");
+                callback(null,{xhr, args});
+            } else {
+				console.log("openFile("+url+"): "+xhr.statusText);
+            }
+        }
+    };
+    xhr.open("GET", url, true);
+    xhr.timeout = timeout;
+    xhr.send(null);
+}
+
+function hideLoading() {
+	$('.rc-pins-loading').fadeOut(200);
+}
+</script>
+
+<i class="loading rc-pins-loading fa fa-cog fa-spin"></i>

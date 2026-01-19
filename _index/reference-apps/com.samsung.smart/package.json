@@ -1,0 +1,44 @@
+{
+  "name": "com.samsung.smart",
+  "version": "1.0.0",
+  "description": "Samsung SmartTV",
+  "main": "app.js",
+  "scripts": {
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.ts'",
+    "posttest": "homey app validate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balmli/com.samsung.smart.git"
+  },
+  "author": "Bjørnar Almli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/balmli/com.samsung.smart/issues"
+  },
+  "homepage": "https://github.com/balmli/com.samsung.smart#readme",
+  "dependencies": {
+    "@balmli/homey-samsung-encryption": "^1.0.0",
+    "homey-log": "2.1.0",
+    "http.min": "2.1.0",
+    "is-port-reachable": "3.0.0",
+    "macaddress": "0.5.1",
+    "node-ssdp-lite": "0.2.0",
+    "p-queue": "6.6.2",
+    "wake_on_lan": "1.0.0",
+    "ws": "8.12.0",
+    "xml2json-light": "1.0.6"
+  },
+  "devDependencies": {
+    "@tsconfig/node12": "^1.0.9",
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^9.1.1",
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.3",
+    "@types/node": "^16.11.12",
+    "chai": "^4.3.6",
+    "eslint": "^5.12.1",
+    "mocha": "^10.0.0",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^4.9.4"
+  }
+}

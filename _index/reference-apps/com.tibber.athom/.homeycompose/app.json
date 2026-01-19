@@ -1,0 +1,48 @@
+{
+  "id": "com.tibber",
+  "version": "1.10.2",
+  "compatibility": ">=8.1.0",
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "sdk": 3,
+  "author": {
+    "name": "Tibber AS",
+    "email": "hello@tibber.com"
+  },
+  "brandColor": "#23B8CC",
+  "name": {
+    "en": "Tibber"
+  },
+  "description": {
+    "en": "Be in charge of your household energy"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "bugs": {
+    "url": "https://github.com/tibber/com.tibber.athom/issues"
+  },
+  "source": "https://github.com/tibber/com.tibber.athom",
+  "support": "mailto:hello@tibber.com",
+  "api": {
+    "getHomeDeviceData": {
+      "method": "GET",
+      "path": "/home-device-data"
+    },
+    "getHomeDevices": {
+      "method": "GET",
+      "path": "/home-devices"
+    },
+    "getPulseDevices": {
+      "method": "GET",
+      "path": "/pulse-devices"
+    }
+  }
+}

@@ -1,0 +1,258 @@
+{
+  "name": {
+    "en": "Pulse"
+  },
+  "platforms": ["local", "cloud"],
+  "connectivity": ["cloud"],
+  "capabilities": [
+    "measure_power",
+    "meter_power",
+    "accumulatedCost",
+    "measure_current.L1",
+    "measure_current.L2",
+    "measure_current.L3",
+    "meter_power.imported",
+    "meter_power.exported"
+  ],
+  "energy": {
+    "cumulative": true,
+    "cumulativeImportedCapability": "meter_power.imported",
+    "cumulativeExportedCapability": "meter_power.exported"
+  },
+  "capabilitiesOptions": {
+    "accumulatedCost": {
+      "decimals": 2
+    },
+    "meter_power": {
+      "title": {
+        "en": "Consumption since midnight"
+      }
+    },
+    "measure_current.L1": {
+      "title": {
+        "en": "Current phase 1"
+      }
+    },
+    "measure_current.L2": {
+      "title": {
+        "en": "Current phase 2"
+      }
+    },
+    "measure_current.L3": {
+      "title": {
+        "en": "Current phase 3"
+      }
+    },
+    "meter_power.imported": {
+      "title": {
+        "en": "Imported"
+      }
+    },
+    "meter_power.exported": {
+      "title": {
+        "en": "Exported"
+      }
+    }
+  },
+  "class": "other",
+  "pair": [
+    {
+      "id": "loading",
+      "template": "loading",
+      "navigation": {
+        "next": "login_oauth2"
+      }
+    },
+    {
+      "id": "login_oauth2",
+      "template": "login_oauth2"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "images": {
+    "large": "/drivers/pulse/assets/images/large.png",
+    "small": "/drivers/pulse/assets/images/small.png"
+  },
+  "settings": [
+    {
+      "id": "pulse_throttle",
+      "type": "number",
+      "label": {
+        "en": "Update interval"
+      },
+      "hint": {
+        "en": "Set a limit to how often the values should update.\nRange: 5 - 3600 seconds, \nDefault: 30"
+      },
+      "value": 30,
+      "attr": {
+        "min": 5,
+        "max": 3600,
+        "step": 5
+      }
+    },
+    {
+      "type": "group",
+      "label": {
+        "en": "Nord Pool elspot fallback"
+      },
+      "children": [
+        {
+          "id": "pulse_currency",
+          "type": "dropdown",
+          "value": "NOK",
+          "label": {
+            "en": "Currency"
+          },
+          "hint": {
+            "en": "Currency when using Nord Pool prices\nDefault: NOK\n\nOnly applicable if you don't have a valid Tibber subscription"
+          },
+          "values": [
+            {
+              "id": "DKK",
+              "label": {
+                "en": "DKK"
+              }
+            },
+            {
+              "id": "EUR",
+              "label": {
+                "en": "EUR"
+              }
+            },
+            {
+              "id": "NOK",
+              "label": {
+                "en": "NOK"
+              }
+            },
+            {
+              "id": "SEK",
+              "label": {
+                "en": "SEK"
+              }
+            }
+          ]
+        },
+        {
+          "id": "pulse_area",
+          "type": "dropdown",
+          "value": "Oslo",
+          "label": {
+            "en": "Price area"
+          },
+          "hint": {
+            "en": "Price area when using Nord Pool prices\nDefault: Oslo\n\nOnly applicable if you don't have a valid Tibber subscription"
+          },
+          "values": [
+            {
+              "id": "Oslo",
+              "label": {
+                "en": "Oslo"
+              }
+            },
+            {
+              "id": "Kr.sand",
+              "label": {
+                "en": "Kr.sand"
+              }
+            },
+            {
+              "id": "Bergen",
+              "label": {
+                "en": "Bergen"
+              }
+            },
+            {
+              "id": "Molde",
+              "label": {
+                "en": "Molde"
+              }
+            },
+            {
+              "id": "Tr.heim",
+              "label": {
+                "en": "Tr.heim"
+              }
+            },
+            {
+              "id": "Tromsø",
+              "label": {
+                "en": "Tromsø"
+              }
+            },
+            {
+              "id": "BE",
+              "label": {
+                "en": "BE"
+              }
+            },
+            {
+              "id": "DE-LU",
+              "label": {
+                "en": "DE-LU"
+              }
+            },
+            {
+              "id": "DK1",
+              "label": {
+                "en": "DK1"
+              }
+            },
+            {
+              "id": "DK2",
+              "label": {
+                "en": "DK2"
+              }
+            },
+            {
+              "id": "FI",
+              "label": {
+                "en": "FI"
+              }
+            },
+            {
+              "id": "NL",
+              "label": {
+                "en": "NL"
+              }
+            },
+            {
+              "id": "SE1",
+              "label": {
+                "en": "SE1"
+              }
+            },
+            {
+              "id": "SE2",
+              "label": {
+                "en": "SE2"
+              }
+            },
+            {
+              "id": "SE3",
+              "label": {
+                "en": "SE3"
+              }
+            },
+            {
+              "id": "SE4",
+              "label": {
+                "en": "SE4"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

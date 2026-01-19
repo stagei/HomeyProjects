@@ -1,0 +1,102 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "skogsaas.dashboards",
+  "version": "1.3.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Dashboards"
+  },
+  "description": {
+    "en": "Create customizable dashboards to control devices, trigger flows and view cameras or insights."
+  },
+  "category": [
+    "tools",
+    "internet"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Marcus Skogsaas"
+  },
+  "brandColor": "#f4502a",
+  "source": "https://github.com/skogsaas/homey.dashboards",
+  "bugs": {
+    "url": "https://github.com/skogsaas/homey.dashboards/issues"
+  },
+  "homepage": "https://skogsaas.github.io",
+  "homeyCommunityTopicId": 84837,
+  "tags": {
+    "en": [
+      "dashboard"
+    ]
+  },
+  "api": {
+    "getDashboards": {
+      "method": "GET",
+      "path": "/dashboards"
+    },
+    "putDashboards": {
+      "method": "PUT",
+      "path": "/dashboards/:storeId/:dashboardId"
+    },
+    "deleteDashboards": {
+      "method": "DELETE",
+      "path": "/dashboards/:storeId/:dashboardId"
+    },
+    "putTemplates": {
+      "method": "PUT",
+      "path": "/templates/:storeId/:templateId"
+    },
+    "deleteTemplates": {
+      "method": "DELETE",
+      "path": "/templates/:storeId/:templateId"
+    },
+    "dashboardHeartbeat": {
+      "method": "POST",
+      "path": "/dashboards/:dashboardId/active"
+    }
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Dashboard"
+      },
+      "class": "other",
+      "capabilities": [],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/dashboard/assets/images/small.png",
+        "large": "/drivers/dashboard/assets/images/large.png",
+        "xlarge": "/drivers/dashboard/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          },
+          "options": {
+            "singular": true
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "dashboard"
+    }
+  ]
+}

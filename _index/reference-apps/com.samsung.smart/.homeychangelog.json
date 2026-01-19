@@ -1,0 +1,92 @@
+{
+  "2.1.0": {
+    "en": "Added action to close running app. Improvements to SmartThings API. "
+  },
+  "2.0.1": {
+    "en": "Updated pairing. "
+  },
+  "2.0.0": {
+    "en": "Updated pairing. "
+  },
+  "1.9.3": {
+    "en": "Bugfix for pairing. "
+  },
+  "1.9.2": {
+    "en": "Bug fix for SDK3. "
+  },
+  "1.9.1": {
+    "en": "Migrated to SDK3. "
+  },
+  "1.9.0": {
+    "en": "Migrated to SDK3. "
+  },
+  "1.8.7": {
+    "en": "Improvements to discover MAC address on boot. "
+  },
+  "1.8.6": {
+    "en": "Discover MAC address on boot. "
+  },
+  "1.8.5": {
+    "en": "Discover MAC address on boot. "
+  },
+  "1.8.4": {
+    "en": "Improvements for power state. "
+  },
+  "1.8.3": {
+    "en": "Fetching volume state for TVs that support UPnP. Fixes for 'Is app running' condition. Fixes for 'Launch app' action. Fixes for power on / off. Added action to manually set the power state. Do not use SmartThings to check if the TV is on or off. "
+  },
+  "1.8.2": {
+    "en": "Fetching volume state for TVs that support UPnP. Fixes for 'Is app running' condition. Fixes for 'Launch app' action. Fixes for power on / off. Added action to manually set the power state. "
+  },
+  "1.8.1": {
+    "en": "Fetching volume state for TVs that support UPnP. Fixes for 'Is app running' condition. Fixes for 'Launch app' action. Fixes for power on / off. "
+  },
+  "1.8.0": {
+    "en": "Fetching volume state for TVs that support UPnP. Fixes for 'Is app running' condition. Fixes for 'Launch app' action. "
+  },
+  "1.7.11": {
+    "en": "Minor bug fix."
+  },
+  "1.7.10": {
+    "en": "Minor bug fix."
+  },
+  "1.7.9": {
+    "en": "Use static list of apps if fetching apps from the TV fails. Fixed pairing bug."
+  },
+  "1.7.8": {
+    "en": "Use static list of apps if fetching apps from the TV fails. Fixed pairing bug."
+  },
+  "1.7.7": {
+    "en": "Use static list of apps if fetching apps from the TV fails."
+  },
+  "1.7.6": {
+    "en": "Use static list of apps if fetching apps from the TV fails."
+  },
+  "1.7.5": {
+    "en": "Use static list of apps if fetching apps from the TV fails."
+  },
+  "1.7.4": {
+    "en": "Use static list of apps if fetching apps from the TV fails."
+  },
+  "1.7.3": {
+    "en": "Fixed issue with Secure connection being reset."
+  },
+  "1.7.2": {
+    "en": "Uses Homey Compose"
+  },
+  "1.7.1": {
+    "en": "Added support for SmartThings API. Can be enabled in Advanced settings. Improved README."
+  },
+  "1.7.0": {
+    "en": "Added support for SmartThings API. Can be enabled in Advanced settings."
+  },
+  "1.6.3": {
+    "en": "Added Ambient mode (KEY_AMBIENT) to the list of keys.  Fix support and source urls."
+  },
+  "1.6.2": {
+    "en": "Added Ambient mode (KEY_AMBIENT) to the list of keys"
+  },
+  "1.6.1": {
+    "en": "Added Exit (KEY_EXIT) to the list of keys"
+  }
+}

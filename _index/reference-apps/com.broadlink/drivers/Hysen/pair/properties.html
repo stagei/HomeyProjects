@@ -1,0 +1,84 @@
+<!--
+ * Driver for Broadlink devices
+ *
+ * Copyright 2018-2019, R Wensveen
+ *
+ * This file is part of com.broadlink
+ * com.broadlink is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * com.broadlink is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with com.broadlink.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<style type="text/css">
+   p {
+      text-align:center
+   }
+   .next-button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+   }
+</style>
+
+<p id="deviceName"></p>
+<BR>
+<div>
+   <input type="checkbox" id="externalSensor" checked>
+   &nbsp;&nbsp;&nbsp;
+   <label data-i18n="pair.has_sensors"></label>
+</div>
+
+<div class="next-button">
+   <button onclick="add()" data-i18n="pair.next" ></button>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+Homey.setTitle(Homey.__('pair.properties'));
+
+var deviceData = null
+
+if (typeof Homey.getViewStoreValue == 'function') {
+	Homey.getViewStoreValue('add_devices', 'devices', 
+		function( err,data) {
+			if( err != null ) { Homey.showView( 'add_devices') }
+			else {
+				if( data.length < 1 ) { Homey.showView( 'add_devices') }
+				else {
+					deviceData = data
+					document.getElementById('deviceName').innerHTML = data[0].name
+				}
+			}
+		})
+}
+else {
+	Homey.showView( 'add_devices')
+}
+
+function doneSettingProperties( err, data ) {
+	Homey.setViewStoreValue('add_devices', 'devices', data,
+			function(err) {
+				Homey.showView('add_devices')
+	})
+}
+
+function add( data ) {
+	var val = document.getElementById('externalSensor').checked;
+	var properties = { 'externalSensor': val, 
+					   'deviceList': deviceData 
+					 }
+	Homey.emit('properties_set', properties, doneSettingProperties )  
+}
+
+
+</script>

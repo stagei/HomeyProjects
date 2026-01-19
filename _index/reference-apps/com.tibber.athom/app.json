@@ -1,0 +1,1942 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.tibber",
+  "version": "1.10.2",
+  "compatibility": ">=8.1.0",
+  "platforms": [
+    "local",
+    "cloud"
+  ],
+  "sdk": 3,
+  "author": {
+    "name": "Tibber AS",
+    "email": "hello@tibber.com"
+  },
+  "brandColor": "#23B8CC",
+  "name": {
+    "en": "Tibber"
+  },
+  "description": {
+    "en": "Be in charge of your household energy"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "bugs": {
+    "url": "https://github.com/tibber/com.tibber.athom/issues"
+  },
+  "source": "https://github.com/tibber/com.tibber.athom",
+  "support": "mailto:hello@tibber.com",
+  "api": {
+    "getHomeDeviceData": {
+      "method": "GET",
+      "path": "/home-device-data"
+    },
+    "getHomeDevices": {
+      "method": "GET",
+      "path": "/home-devices"
+    },
+    "getPulseDevices": {
+      "method": "GET",
+      "path": "/pulse-devices"
+    }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "current.L1_changed",
+        "title": {
+          "en": "Current phase 1 changed"
+        },
+        "tokens": [
+          {
+            "name": "currentL1",
+            "type": "number",
+            "title": {
+              "en": "Current phase 1"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pulse|watty"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "current.L2_changed",
+        "title": {
+          "en": "Current phase 2 changed"
+        },
+        "tokens": [
+          {
+            "name": "currentL2",
+            "type": "number",
+            "title": {
+              "en": "Current phase 2"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pulse|watty"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "current.L3_changed",
+        "title": {
+          "en": "Current phase 3 changed"
+        },
+        "tokens": [
+          {
+            "name": "currentL3",
+            "type": "number",
+            "title": {
+              "en": "Current phase 3"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pulse|watty"
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_changed",
+        "title": {
+          "en": "Price changed"
+        },
+        "tokens": [
+          {
+            "name": "total",
+            "type": "number",
+            "title": {
+              "en": "total"
+            }
+          },
+          {
+            "name": "energy",
+            "type": "number",
+            "title": {
+              "en": "energy"
+            }
+          },
+          {
+            "name": "tax",
+            "type": "number",
+            "title": {
+              "en": "tax"
+            }
+          },
+          {
+            "name": "level",
+            "type": "string",
+            "title": {
+              "en": "level"
+            },
+            "example": {
+              "en": "VERY_EXPENSIVE"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          }
+        ]
+      },
+      {
+        "id": "price_below_avg",
+        "title": {
+          "en": "Current price is [x] percent below average of the next [y] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price is [[percentage]] percent below average of the next [[hours]] hours"
+        },
+        "tokens": [],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_above_avg",
+        "title": {
+          "en": "Current price is [x] percent above average of the next [y] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price is [[percentage]] percent above average of the next [[hours]] hours"
+        },
+        "tokens": [],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "2"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_below_avg_today",
+        "title": {
+          "en": "Current price is [x] percent below today's average"
+        },
+        "titleFormatted": {
+          "en": "Current price is [[percentage]] percent below today's average"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_above_avg_today",
+        "title": {
+          "en": "Current price is [x] percent above today's average"
+        },
+        "titleFormatted": {
+          "en": "Current price is [[percentage]] percent above today's average"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_at_lowest",
+        "title": {
+          "en": "Current price is at its lowest among the next [x] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price is at its lowest among the next [[hours]] hours"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_at_highest",
+        "title": {
+          "en": "Current price is at its highest among the next [y] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price is at its highest among the next [[hours]] hours"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_at_lowest_today",
+        "title": {
+          "en": "Current price is at today's lowest"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          }
+        ]
+      },
+      {
+        "id": "price_at_highest_today",
+        "title": {
+          "en": "Current price is at today's highest"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          }
+        ]
+      },
+      {
+        "id": "price_among_lowest_today",
+        "title": {
+          "en": "Current price is one of today's lowest [x] prices"
+        },
+        "titleFormatted": {
+          "en": "Current price is one of today's lowest [[ranked_hours]] prices"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "ranked_hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "price_among_highest_today",
+        "title": {
+          "en": "Current price is one of today's highest [x] prices"
+        },
+        "titleFormatted": {
+          "en": "Current price is one of today's highest [[ranked_hours]] prices"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "ranked_hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "consumption_report",
+        "title": {
+          "en": "Consumption is reported"
+        },
+        "tokens": [
+          {
+            "name": "consumption",
+            "type": "number",
+            "title": {
+              "en": "consumption"
+            }
+          },
+          {
+            "name": "totalCost",
+            "type": "number",
+            "title": {
+              "en": "cost"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          }
+        ]
+      },
+      {
+        "id": "consumption_changed",
+        "title": {
+          "en": "Consumption since midnight changed"
+        },
+        "tokens": [
+          {
+            "name": "consumption",
+            "type": "number",
+            "title": {
+              "en": "Consumption"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pulse"
+          }
+        ]
+      },
+      {
+        "id": "cost_changed",
+        "title": {
+          "en": "Cost since midnight changed"
+        },
+        "tokens": [
+          {
+            "name": "cost",
+            "type": "number",
+            "title": {
+              "en": "Cost"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pulse"
+          }
+        ]
+      },
+      {
+        "id": "daily_consumption_report",
+        "title": {
+          "en": "Daily consumption is reported"
+        },
+        "tokens": [
+          {
+            "name": "consumption",
+            "type": "number",
+            "title": {
+              "en": "consumption"
+            }
+          },
+          {
+            "name": "cost",
+            "type": "number",
+            "title": {
+              "en": "cost"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pulse"
+          }
+        ]
+      },
+      {
+        "id": "power_changed",
+        "title": {
+          "en": "Power changed"
+        },
+        "tokens": [
+          {
+            "name": "power",
+            "type": "number",
+            "title": {
+              "en": "Power"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=pulse"
+          }
+        ]
+      },
+      {
+        "id": "watty_consumption_changed",
+        "title": {
+          "en": "Consumption since midnight changed"
+        },
+        "tokens": [
+          {
+            "name": "consumption",
+            "type": "number",
+            "title": {
+              "en": "Consumption"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watty"
+          }
+        ]
+      },
+      {
+        "id": "watty_cost_changed",
+        "title": {
+          "en": "Cost since midnight changed"
+        },
+        "tokens": [
+          {
+            "name": "cost",
+            "type": "number",
+            "title": {
+              "en": "Cost"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watty"
+          }
+        ]
+      },
+      {
+        "id": "watty_daily_consumption_report",
+        "title": {
+          "en": "Daily consumption is reported"
+        },
+        "tokens": [
+          {
+            "name": "consumption",
+            "type": "number",
+            "title": {
+              "en": "consumption"
+            }
+          },
+          {
+            "name": "cost",
+            "type": "number",
+            "title": {
+              "en": "cost"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watty"
+          }
+        ]
+      },
+      {
+        "id": "watty_power_changed",
+        "title": {
+          "en": "Power changed"
+        },
+        "tokens": [
+          {
+            "name": "power",
+            "type": "number",
+            "title": {
+              "en": "Power"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=watty"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "price_among_lowest_during_time",
+        "title": {
+          "en": "Current price is one of the [x] lowest prices between [y] and [z]"
+        },
+        "titleFormatted": {
+          "en": "Current price is one of the [[ranked_hours]] lowest prices between [[start_time]] and [[end_time]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "ranked_hours",
+            "type": "number",
+            "title": {
+              "en": "Amount of lowest hours"
+            },
+            "placeholder": {
+              "en": "1"
+            },
+            "min": 1,
+            "max": 24,
+            "step": 1
+          },
+          {
+            "name": "start_time",
+            "type": "time",
+            "title": {
+              "en": "Start time"
+            },
+            "placeholder": {
+              "en": "08:00"
+            }
+          },
+          {
+            "name": "end_time",
+            "type": "time",
+            "title": {
+              "en": "End time"
+            },
+            "placeholder": {
+              "en": "14:00"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "current_price_below",
+        "title": {
+          "en": "Current price !{{below|above}}"
+        },
+        "titleFormatted": {
+          "en": "Current price is !{{below|above}} [[price]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "price",
+            "type": "number",
+            "title": {
+              "en": "Price"
+            },
+            "placeholder": {
+              "en": "0.2"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_below_avg",
+        "title": {
+          "en": "Current price !{{is|isn't}} [x] percent below average of the next [y] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} [[percentage]] percent below average of the next [[hours]] hours"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_above_avg",
+        "title": {
+          "en": "Current price !{{is|isn't}} [x] percent above average of the next [y] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} [[percentage]] percent above average of the next [[hours]] hours"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_below_avg_today",
+        "title": {
+          "en": "Current price !{{is|isn't}} [x] percent below today's average"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} [[percentage]] percent below today's average"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_above_avg_today",
+        "title": {
+          "en": "Current price !{{is|isn't}} [x] percent above today's average"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} [[percentage]] percent above today's average"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "percentage",
+            "type": "number",
+            "title": {
+              "en": "Percentage"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_at_lowest",
+        "title": {
+          "en": "Current price !{{is|isn't}} at its lowest among the next [x] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} at its lowest among the next [[hours]] hours"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "20"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_at_highest",
+        "title": {
+          "en": "Current price !{{is|isn't}} at its highest among the next [x] hours"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} at its highest among the next [[hours]] hours"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "1"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_at_lowest_today",
+        "title": {
+          "en": "Current price !{{is|isn't}} at today's lowest"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          }
+        ]
+      },
+      {
+        "id": "cond_price_at_highest_today",
+        "title": {
+          "en": "Current price !{{is|isn't}} at today's highest"
+        },
+        "platforms": [
+          "local",
+          "cloud"
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          }
+        ]
+      },
+      {
+        "id": "cond_price_among_lowest_today",
+        "title": {
+          "en": "Current price !{{is|isn't}} one of today's lowest [x] prices"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} one of today's lowest [[ranked_hours]] prices"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "ranked_hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "3"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      },
+      {
+        "id": "cond_price_among_highest_today",
+        "title": {
+          "en": "Current price !{{is|isn't}} one of today's highest [x] prices"
+        },
+        "titleFormatted": {
+          "en": "Current price !{{is|isn't}} one of today's highest [[ranked_hours]] prices"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "ranked_hours",
+            "type": "number",
+            "title": {
+              "en": "Hours"
+            },
+            "placeholder": {
+              "en": "3"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "sendPushNotification",
+        "title": {
+          "en": "Send Tibber push notification"
+        },
+        "titleFormatted": {
+          "en": "Send Tibber push notification with [[title]] and [[message]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=home"
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "title": {
+              "en": "Title"
+            }
+          },
+          {
+            "name": "message",
+            "type": "text",
+            "title": {
+              "en": "Message"
+            }
+          }
+        ],
+        "platforms": [
+          "local",
+          "cloud"
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Home"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "measure_price_total",
+        "measure_price_info_level",
+        "measure_price_lowest",
+        "measure_price_highest"
+      ],
+      "capabilitiesOptions": {
+        "measure_price_total": {
+          "decimals": 2,
+          "preventInsights": true
+        }
+      },
+      "class": "other",
+      "pair": [
+        {
+          "id": "loading",
+          "template": "loading",
+          "navigation": {
+            "next": "login_oauth2"
+          }
+        },
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/home/assets/images/large.png",
+        "small": "/drivers/home/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "id": "enable_consumption_report",
+          "type": "checkbox",
+          "label": {
+            "en": "Enable non-realtime consumption reporting"
+          },
+          "hint": {
+            "en": "Enable periodical fetch of Tibber consumption data to Homey Insights. Periodical fetch produces a lot of traffic towards Tibber API so enable only if needed."
+          },
+          "value": false
+        }
+      ],
+      "id": "home"
+    },
+    {
+      "name": {
+        "en": "Pulse"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "measure_power",
+        "meter_power",
+        "accumulatedCost",
+        "measure_current.L1",
+        "measure_current.L2",
+        "measure_current.L3",
+        "meter_power.imported",
+        "meter_power.exported"
+      ],
+      "energy": {
+        "cumulative": true,
+        "cumulativeImportedCapability": "meter_power.imported",
+        "cumulativeExportedCapability": "meter_power.exported"
+      },
+      "capabilitiesOptions": {
+        "accumulatedCost": {
+          "decimals": 2
+        },
+        "meter_power": {
+          "title": {
+            "en": "Consumption since midnight"
+          }
+        },
+        "measure_current.L1": {
+          "title": {
+            "en": "Current phase 1"
+          }
+        },
+        "measure_current.L2": {
+          "title": {
+            "en": "Current phase 2"
+          }
+        },
+        "measure_current.L3": {
+          "title": {
+            "en": "Current phase 3"
+          }
+        },
+        "meter_power.imported": {
+          "title": {
+            "en": "Imported"
+          }
+        },
+        "meter_power.exported": {
+          "title": {
+            "en": "Exported"
+          }
+        }
+      },
+      "class": "other",
+      "pair": [
+        {
+          "id": "loading",
+          "template": "loading",
+          "navigation": {
+            "next": "login_oauth2"
+          }
+        },
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/pulse/assets/images/large.png",
+        "small": "/drivers/pulse/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "id": "pulse_throttle",
+          "type": "number",
+          "label": {
+            "en": "Update interval"
+          },
+          "hint": {
+            "en": "Set a limit to how often the values should update.\nRange: 5 - 3600 seconds, \nDefault: 30"
+          },
+          "value": 30,
+          "attr": {
+            "min": 5,
+            "max": 3600,
+            "step": 5
+          }
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Nord Pool elspot fallback"
+          },
+          "children": [
+            {
+              "id": "pulse_currency",
+              "type": "dropdown",
+              "value": "NOK",
+              "label": {
+                "en": "Currency"
+              },
+              "hint": {
+                "en": "Currency when using Nord Pool prices\nDefault: NOK\n\nOnly applicable if you don't have a valid Tibber subscription"
+              },
+              "values": [
+                {
+                  "id": "DKK",
+                  "label": {
+                    "en": "DKK"
+                  }
+                },
+                {
+                  "id": "EUR",
+                  "label": {
+                    "en": "EUR"
+                  }
+                },
+                {
+                  "id": "NOK",
+                  "label": {
+                    "en": "NOK"
+                  }
+                },
+                {
+                  "id": "SEK",
+                  "label": {
+                    "en": "SEK"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "pulse_area",
+              "type": "dropdown",
+              "value": "Oslo",
+              "label": {
+                "en": "Price area"
+              },
+              "hint": {
+                "en": "Price area when using Nord Pool prices\nDefault: Oslo\n\nOnly applicable if you don't have a valid Tibber subscription"
+              },
+              "values": [
+                {
+                  "id": "Oslo",
+                  "label": {
+                    "en": "Oslo"
+                  }
+                },
+                {
+                  "id": "Kr.sand",
+                  "label": {
+                    "en": "Kr.sand"
+                  }
+                },
+                {
+                  "id": "Bergen",
+                  "label": {
+                    "en": "Bergen"
+                  }
+                },
+                {
+                  "id": "Molde",
+                  "label": {
+                    "en": "Molde"
+                  }
+                },
+                {
+                  "id": "Tr.heim",
+                  "label": {
+                    "en": "Tr.heim"
+                  }
+                },
+                {
+                  "id": "Tromsø",
+                  "label": {
+                    "en": "Tromsø"
+                  }
+                },
+                {
+                  "id": "BE",
+                  "label": {
+                    "en": "BE"
+                  }
+                },
+                {
+                  "id": "DE-LU",
+                  "label": {
+                    "en": "DE-LU"
+                  }
+                },
+                {
+                  "id": "DK1",
+                  "label": {
+                    "en": "DK1"
+                  }
+                },
+                {
+                  "id": "DK2",
+                  "label": {
+                    "en": "DK2"
+                  }
+                },
+                {
+                  "id": "FI",
+                  "label": {
+                    "en": "FI"
+                  }
+                },
+                {
+                  "id": "NL",
+                  "label": {
+                    "en": "NL"
+                  }
+                },
+                {
+                  "id": "SE1",
+                  "label": {
+                    "en": "SE1"
+                  }
+                },
+                {
+                  "id": "SE2",
+                  "label": {
+                    "en": "SE2"
+                  }
+                },
+                {
+                  "id": "SE3",
+                  "label": {
+                    "en": "SE3"
+                  }
+                },
+                {
+                  "id": "SE4",
+                  "label": {
+                    "en": "SE4"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "pulse"
+    },
+    {
+      "name": {
+        "en": "Watty"
+      },
+      "platforms": [
+        "local",
+        "cloud"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "capabilities": [
+        "measure_power",
+        "meter_power",
+        "accumulatedCost",
+        "measure_current.L1",
+        "measure_current.L2",
+        "measure_current.L3",
+        "meter_power.imported",
+        "meter_power.exported"
+      ],
+      "energy": {
+        "cumulative": true,
+        "cumulativeImportedCapability": "meter_power.imported",
+        "cumulativeExportedCapability": "meter_power.exported"
+      },
+      "capabilitiesOptions": {
+        "accumulatedCost": {
+          "decimals": 2
+        },
+        "meter_power": {
+          "title": {
+            "en": "Consumption since midnight"
+          }
+        },
+        "measure_current.L1": {
+          "title": {
+            "en": "Current phase 1"
+          }
+        },
+        "measure_current.L2": {
+          "title": {
+            "en": "Current phase 2"
+          }
+        },
+        "measure_current.L3": {
+          "title": {
+            "en": "Current phase 3"
+          }
+        },
+        "meter_power.imported": {
+          "title": {
+            "en": "Imported"
+          }
+        },
+        "meter_power.exported": {
+          "title": {
+            "en": "Exported"
+          }
+        }
+      },
+      "class": "other",
+      "pair": [
+        {
+          "id": "loading",
+          "template": "loading",
+          "navigation": {
+            "next": "login_oauth2"
+          }
+        },
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "images": {
+        "large": "/drivers/watty/assets/images/large.png",
+        "small": "/drivers/watty/assets/images/small.png"
+      },
+      "settings": [
+        {
+          "id": "pulse_throttle",
+          "type": "number",
+          "label": {
+            "en": "Update interval"
+          },
+          "hint": {
+            "en": "Set a limit to how often the values should update.\nRange: 5 - 3600 seconds, \nDefault: 30"
+          },
+          "value": 30,
+          "attr": {
+            "min": 5,
+            "max": 3600,
+            "step": 5
+          }
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Nord Pool elspot fallback"
+          },
+          "children": [
+            {
+              "id": "pulse_currency",
+              "type": "dropdown",
+              "value": "NOK",
+              "label": {
+                "en": "Currency"
+              },
+              "hint": {
+                "en": "Currency when using Nord Pool prices\nDefault: NOK\n\nOnly applicable if you don't have a valid Tibber subscription"
+              },
+              "values": [
+                {
+                  "id": "DKK",
+                  "label": {
+                    "en": "DKK"
+                  }
+                },
+                {
+                  "id": "EUR",
+                  "label": {
+                    "en": "EUR"
+                  }
+                },
+                {
+                  "id": "NOK",
+                  "label": {
+                    "en": "NOK"
+                  }
+                },
+                {
+                  "id": "SEK",
+                  "label": {
+                    "en": "SEK"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "pulse_area",
+              "type": "dropdown",
+              "value": "Oslo",
+              "label": {
+                "en": "Price area"
+              },
+              "hint": {
+                "en": "Price area when using Nord Pool prices\nDefault: Oslo\n\nOnly applicable if you don't have a valid Tibber subscription"
+              },
+              "values": [
+                {
+                  "id": "Oslo",
+                  "label": {
+                    "en": "Oslo"
+                  }
+                },
+                {
+                  "id": "Kr.sand",
+                  "label": {
+                    "en": "Kr.sand"
+                  }
+                },
+                {
+                  "id": "Bergen",
+                  "label": {
+                    "en": "Bergen"
+                  }
+                },
+                {
+                  "id": "Molde",
+                  "label": {
+                    "en": "Molde"
+                  }
+                },
+                {
+                  "id": "Tr.heim",
+                  "label": {
+                    "en": "Tr.heim"
+                  }
+                },
+                {
+                  "id": "Tromsø",
+                  "label": {
+                    "en": "Tromsø"
+                  }
+                },
+                {
+                  "id": "BE",
+                  "label": {
+                    "en": "BE"
+                  }
+                },
+                {
+                  "id": "DE-LU",
+                  "label": {
+                    "en": "DE-LU"
+                  }
+                },
+                {
+                  "id": "DK1",
+                  "label": {
+                    "en": "DK1"
+                  }
+                },
+                {
+                  "id": "DK2",
+                  "label": {
+                    "en": "DK2"
+                  }
+                },
+                {
+                  "id": "FI",
+                  "label": {
+                    "en": "FI"
+                  }
+                },
+                {
+                  "id": "NL",
+                  "label": {
+                    "en": "NL"
+                  }
+                },
+                {
+                  "id": "SE1",
+                  "label": {
+                    "en": "SE1"
+                  }
+                },
+                {
+                  "id": "SE2",
+                  "label": {
+                    "en": "SE2"
+                  }
+                },
+                {
+                  "id": "SE3",
+                  "label": {
+                    "en": "SE3"
+                  }
+                },
+                {
+                  "id": "SE4",
+                  "label": {
+                    "en": "SE4"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "watty"
+    }
+  ],
+  "capabilities": {
+    "accumulatedCost": {
+      "type": "number",
+      "title": {
+        "en": "Cost since midnight"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "¤",
+        "nl": "€",
+        "de": "€",
+        "sv": "kr",
+        "no": "kr"
+      },
+      "icon": "/drivers/pulse/assets/dollar.svg"
+    },
+    "measure_price_highest": {
+      "type": "number",
+      "title": {
+        "en": "Highest price today"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null,
+      "units": {
+        "en": "¤",
+        "nl": "€",
+        "de": "€",
+        "sv": "kr",
+        "no": "kr"
+      },
+      "icon": "/drivers/pulse/assets/dollar.svg"
+    },
+    "measure_price_info_level": {
+      "type": "enum",
+      "title": {
+        "en": "Price level"
+      },
+      "getable": true,
+      "setable": false,
+      "values": [
+        {
+          "id": "VERY_CHEAP",
+          "title": {
+            "en": "VERY_CHEAP"
+          }
+        },
+        {
+          "id": "CHEAP",
+          "title": {
+            "en": "CHEAP"
+          }
+        },
+        {
+          "id": "NORMAL",
+          "title": {
+            "en": "NORMAL"
+          }
+        },
+        {
+          "id": "EXPENSIVE",
+          "title": {
+            "en": "EXPENSIVE"
+          }
+        },
+        {
+          "id": "VERY_EXPENSIVE",
+          "title": {
+            "en": "VERY_EXPENSIVE"
+          }
+        }
+      ],
+      "icon": "/drivers/home/assets/dollar.svg"
+    },
+    "measure_price_level": {
+      "type": "enum",
+      "title": {
+        "en": "Price level (deprecated)"
+      },
+      "getable": true,
+      "setable": false,
+      "values": [
+        {
+          "id": "LOW",
+          "title": {
+            "en": "LOW"
+          }
+        },
+        {
+          "id": "NORMAL",
+          "title": {
+            "en": "NORMAL"
+          }
+        },
+        {
+          "id": "HIGH",
+          "title": {
+            "en": "HIGH"
+          }
+        }
+      ],
+      "icon": "/drivers/home/assets/dollar.svg",
+      "uiComponent": null
+    },
+    "measure_price_lowest": {
+      "type": "number",
+      "title": {
+        "en": "Lowest price today"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": null,
+      "units": {
+        "en": "¤",
+        "nl": "€",
+        "de": "€",
+        "sv": "kr",
+        "no": "kr"
+      },
+      "icon": "/drivers/pulse/assets/dollar.svg"
+    },
+    "measure_price_total": {
+      "type": "number",
+      "title": {
+        "en": "Current price"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "¤",
+        "nl": "€",
+        "de": "€",
+        "sv": "kr",
+        "no": "kr"
+      },
+      "icon": "/drivers/home/assets/dollar.svg"
+    },
+    "price_level": {
+      "type": "enum",
+      "title": {
+        "en": "Price level (deprecated)"
+      },
+      "getable": true,
+      "setable": false,
+      "values": [
+        {
+          "id": "VERY_CHEAP",
+          "title": {
+            "en": "VERY_CHEAP"
+          }
+        },
+        {
+          "id": "CHEAP",
+          "title": {
+            "en": "CHEAP"
+          }
+        },
+        {
+          "id": "NORMAL",
+          "title": {
+            "en": "NORMAL"
+          }
+        },
+        {
+          "id": "EXPENSIVE",
+          "title": {
+            "en": "EXPENSIVE"
+          }
+        },
+        {
+          "id": "VERY_EXPENSIVE",
+          "title": {
+            "en": "VERY_EXPENSIVE"
+          }
+        }
+      ],
+      "icon": "/drivers/home/assets/dollar.svg",
+      "uiComponent": null
+    },
+    "price_total": {
+      "type": "number",
+      "title": {
+        "en": "Current price"
+      },
+      "getable": true,
+      "setable": false,
+      "units": {
+        "en": "¤",
+        "nl": "€",
+        "de": "€",
+        "sv": "kr",
+        "no": "kr"
+      },
+      "icon": "/drivers/home/assets/dollar.svg",
+      "uiComponent": null
+    }
+  }
+}

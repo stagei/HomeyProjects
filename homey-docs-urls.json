@@ -1,0 +1,394 @@
+{
+  "baseUrl": "https://apps.developer.homey.app",
+  "externalReferences": {
+    "sdkApiReference": "https://apps-sdk-v3.developer.homey.app/",
+    "webApiReference": "https://api.developer.homey.app/",
+    "developerTools": "https://developer.athom.com/",
+    "community": "https://community.homey.app/",
+    "webhookTools": "https://tools.developer.homey.app/webhooks"
+  },
+  "referenceApps": {
+    "official": [
+      { "name": "HomeyScript", "folder": "_index/reference-apps/com.athom.homeyscript", "link": "https://github.com/athombv/com.athom.homeyscript" },
+      { "name": "Homeyduino", "folder": "_index/reference-apps/com.athom.homeyduino", "link": "https://github.com/athombv/com.athom.homeyduino" },
+      { "name": "IKEA Trådfri Example", "folder": "_index/reference-apps/com.ikea.tradfri-example", "link": "https://github.com/athombv/com.ikea.tradfri-example" },
+      { "name": "KlikAanKlikUit Example", "folder": "_index/reference-apps/nl.klikaanklikuit-example", "link": "https://github.com/athombv/nl.klikaanklikuit-example" },
+      { "name": "KNX", "folder": "_index/reference-apps/org.knx", "link": "https://github.com/athombv/org.knx" }
+    ],
+    "community": [
+      { "name": "Mi Homey (Xiaomi/Aqara)", "folder": "_index/reference-apps/com.maxmudjon.mihomey", "link": "https://github.com/Maxmudjon/com.maxmudjon.mihomey" },
+      { "name": "Broadlink", "folder": "_index/reference-apps/com.broadlink", "link": "https://github.com/RWensveen/com.broadlink" },
+      { "name": "Samsung Smart TV", "folder": "_index/reference-apps/com.samsung.smart", "link": "https://github.com/balmli/com.samsung.smart" },
+      { "name": "Netatmo Weather", "folder": "_index/reference-apps/com.netatmo", "link": "https://github.com/BasKiers/com.netatmo" },
+      { "name": "Tibber Energy", "folder": "_index/reference-apps/com.tibber.athom", "link": "https://github.com/tibber/com.tibber.athom" },
+      { "name": "OpenTherm Gateway", "folder": "_index/reference-apps/com.tclcode.otgw", "link": "https://github.com/nlrb/com.tclcode.otgw" },
+      { "name": "MQTT Hub", "folder": "_index/reference-apps/nl.hdg.mqtt", "link": "https://github.com/harriedegroot/nl.hdg.mqtt" },
+      { "name": "Homey Dashboards", "folder": "_index/reference-apps/homey.dashboards", "link": "https://github.com/skogsaas/homey.dashboards" }
+    ],
+    "libraries": [
+      { "name": "Homey CLI", "folder": "_index/reference-apps/node-homey", "link": "https://github.com/athombv/node-homey" },
+      { "name": "Z-Wave Driver", "folder": "_index/reference-apps/node-homey-zwavedriver", "link": "https://github.com/athombv/node-homey-zwavedriver" },
+      { "name": "Zigbee Driver", "folder": "_index/reference-apps/node-homey-zigbeedriver", "link": "https://github.com/athombv/node-homey-zigbeedriver" },
+      { "name": "RF Driver", "folder": "_index/reference-apps/node-homey-rfdriver", "link": "https://github.com/athombv/node-homey-rfdriver" },
+      { "name": "OAuth2 App", "folder": "_index/reference-apps/node-homey-oauth2app", "link": "https://github.com/athombv/node-homey-oauth2app" },
+      { "name": "Homey Log", "folder": "_index/reference-apps/node-homey-log", "link": "https://github.com/athombv/node-homey-log" }
+    ]
+  },
+  "driverLibraries": [
+    {
+      "name": "Homey Z-Wave Driver",
+      "link": "https://athombv.github.io/node-homey-zwavedriver/",
+      "package": "homey-zwavedriver",
+      "description": "Z-Wave device driver library"
+    },
+    {
+      "name": "Homey Zigbee Driver",
+      "link": "https://athombv.github.io/node-homey-zigbeedriver/",
+      "package": "homey-zigbeedriver",
+      "description": "Zigbee device driver library"
+    },
+    {
+      "name": "Homey RF Driver",
+      "link": "https://github.com/athombv/node-homey-rfdriver/",
+      "package": "homey-rfdriver",
+      "description": "433 MHz / 868 MHz RF driver library"
+    },
+    {
+      "name": "Homey OAuth2 App",
+      "link": "https://github.com/athombv/node-homey-oauth2app/",
+      "package": "homey-oauth2app",
+      "description": "OAuth2 authentication helper"
+    },
+    {
+      "name": "Homey Log",
+      "link": "https://github.com/athombv/node-homey-log",
+      "package": "homey-log",
+      "description": "Sentry error logging integration"
+    }
+  ],
+  "theBasics": [
+    {
+      "name": "Getting Started",
+      "link": "https://apps.developer.homey.app/the-basics/getting-started",
+      "localDoc": "_index/docs/the-basics/getting-started/index.md"
+    },
+    {
+      "name": "Homey CLI",
+      "link": "https://apps.developer.homey.app/the-basics/getting-started/homey-cli",
+      "localDoc": "_index/docs/the-basics/getting-started/homey-cli.md"
+    },
+    {
+      "name": "App",
+      "link": "https://apps.developer.homey.app/the-basics/app",
+      "localDoc": "_index/docs/the-basics/app/index.md"
+    },
+    {
+      "name": "Manifest",
+      "link": "https://apps.developer.homey.app/the-basics/app/manifest",
+      "localDoc": "_index/docs/the-basics/app/manifest.md"
+    },
+    {
+      "name": "Internationalization",
+      "link": "https://apps.developer.homey.app/the-basics/app/internationalization",
+      "localDoc": "_index/docs/the-basics/app/internationalization.md"
+    },
+    {
+      "name": "Permissions",
+      "link": "https://apps.developer.homey.app/the-basics/app/permissions",
+      "localDoc": "_index/docs/the-basics/app/permissions.md"
+    },
+    {
+      "name": "Persistent Storage",
+      "link": "https://apps.developer.homey.app/the-basics/app/persistent-storage",
+      "localDoc": "_index/docs/the-basics/app/persistent-storage.md"
+    },
+    {
+      "name": "Drivers & Devices",
+      "link": "https://apps.developer.homey.app/the-basics/devices",
+      "localDoc": "_index/docs/the-basics/devices.md"
+    },
+    {
+      "name": "Device Pairing",
+      "link": "https://apps.developer.homey.app/the-basics/devices/pairing",
+      "localDoc": "_index/docs/the-basics/devices/pairing.md"
+    },
+    {
+      "name": "Device Settings",
+      "link": "https://apps.developer.homey.app/the-basics/devices/settings",
+      "localDoc": "_index/docs/the-basics/devices/settings.md"
+    },
+    {
+      "name": "Flow",
+      "link": "https://apps.developer.homey.app/the-basics/flow",
+      "localDoc": "_index/docs/the-basics/flow.md"
+    },
+    {
+      "name": "Flow Arguments",
+      "link": "https://apps.developer.homey.app/the-basics/flow/arguments",
+      "localDoc": "_index/docs/the-basics/flow/arguments.md"
+    },
+    {
+      "name": "Widgets",
+      "link": "https://apps.developer.homey.app/the-basics/widgets",
+      "localDoc": "_index/docs/the-basics/widgets.md"
+    }
+  ],
+  "wireless": [
+    {
+      "name": "Wireless Overview",
+      "link": "https://apps.developer.homey.app/wireless",
+      "localDoc": "_index/docs/wireless/index.md"
+    },
+    {
+      "name": "Wi-Fi",
+      "link": "https://apps.developer.homey.app/wireless/wi-fi",
+      "localDoc": "_index/docs/wireless/wifi.md"
+    },
+    {
+      "name": "Wi-Fi Discovery",
+      "link": "https://apps.developer.homey.app/wireless/wi-fi/discovery",
+      "localDoc": "_index/docs/wireless/wifi.md"
+    },
+    {
+      "name": "Bluetooth LE",
+      "link": "https://apps.developer.homey.app/wireless/bluetooth-le",
+      "localDoc": "_index/docs/wireless/bluetooth-le.md"
+    },
+    {
+      "name": "Z-Wave",
+      "link": "https://apps.developer.homey.app/wireless/z-wave",
+      "localDoc": "_index/docs/wireless/zwave.md"
+    },
+    {
+      "name": "Zigbee",
+      "link": "https://apps.developer.homey.app/wireless/zigbee",
+      "localDoc": "_index/docs/wireless/zigbee.md"
+    },
+    {
+      "name": "433 MHz",
+      "link": "https://apps.developer.homey.app/wireless/433",
+      "localDoc": "_index/docs/wireless/433mhz.md"
+    },
+    {
+      "name": "Infrared",
+      "link": "https://apps.developer.homey.app/wireless/infrared",
+      "localDoc": "_index/docs/wireless/infrared.md"
+    },
+    {
+      "name": "Matter",
+      "link": "https://apps.developer.homey.app/wireless/matter",
+      "localDoc": "_index/docs/wireless/matter.md"
+    }
+  ],
+  "cloud": [
+    {
+      "name": "OAuth2",
+      "link": "https://apps.developer.homey.app/cloud/oauth2",
+      "localDoc": "_index/docs/cloud/oauth2.md"
+    },
+    {
+      "name": "Webhooks",
+      "link": "https://apps.developer.homey.app/cloud/webhooks",
+      "localDoc": "_index/docs/cloud/webhooks.md"
+    }
+  ],
+  "advanced": [
+    {
+      "name": "Custom Views",
+      "link": "https://apps.developer.homey.app/advanced/custom-views",
+      "localDoc": "_index/docs/advanced/custom-views/index.md"
+    },
+    {
+      "name": "App Settings View",
+      "link": "https://apps.developer.homey.app/advanced/custom-views/app-settings",
+      "localDoc": "_index/docs/advanced/custom-views/app-settings.md"
+    },
+    {
+      "name": "Custom Pairing Views",
+      "link": "https://apps.developer.homey.app/advanced/custom-views/custom-pairing-views",
+      "localDoc": "_index/docs/advanced/custom-views/pairing-views.md"
+    },
+    {
+      "name": "Web API",
+      "link": "https://apps.developer.homey.app/advanced/web-api",
+      "localDoc": "_index/docs/advanced/web-api.md"
+    },
+    {
+      "name": "Images",
+      "link": "https://apps.developer.homey.app/advanced/images",
+      "localDoc": "_index/docs/advanced/images.md"
+    },
+    {
+      "name": "Homey Compose",
+      "link": "https://apps.developer.homey.app/advanced/homey-compose",
+      "localDoc": "_index/docs/advanced/homey-compose.md"
+    },
+    {
+      "name": "TypeScript",
+      "link": "https://apps.developer.homey.app/guides/tools/typescript",
+      "localDoc": "_index/docs/advanced/typescript.md"
+    }
+  ],
+  "appStore": [
+    {
+      "name": "Publishing",
+      "link": "https://apps.developer.homey.app/app-store/publishing",
+      "localDoc": "_index/docs/app-store/publishing.md"
+    },
+    {
+      "name": "Guidelines",
+      "link": "https://apps.developer.homey.app/app-store/guidelines",
+      "localDoc": "_index/docs/app-store/guidelines.md"
+    },
+    {
+      "name": "Verified Developer",
+      "link": "https://apps.developer.homey.app/app-store/verified-developer",
+      "localDoc": "_index/docs/app-store/verified-developer.md"
+    },
+    {
+      "name": "Updating",
+      "link": "https://apps.developer.homey.app/app-store/updating",
+      "localDoc": "_index/docs/app-store/updating.md"
+    }
+  ],
+  "apiReference": {
+    "baseUrl": "https://apps-sdk-v3.developer.homey.app/",
+    "tutorials": [
+      {
+        "name": "Device Capabilities",
+        "link": "https://apps-sdk-v3.developer.homey.app/tutorial-device-capabilities.html",
+        "localDoc": "_index/docs/api-reference/device-capabilities.md"
+      },
+      {
+        "name": "Device Classes",
+        "link": "https://apps-sdk-v3.developer.homey.app/tutorial-device-classes.html",
+        "localDoc": "_index/docs/api-reference/device-classes.md"
+      }
+    ],
+    "managers": [
+      { "name": "ManagerApi", "link": "https://apps-sdk-v3.developer.homey.app/ManagerApi.html", "access": "this.homey.api" },
+      { "name": "ManagerApps", "link": "https://apps-sdk-v3.developer.homey.app/ManagerApps.html", "access": "this.homey.apps" },
+      { "name": "ManagerArp", "link": "https://apps-sdk-v3.developer.homey.app/ManagerArp.html", "access": "this.homey.arp" },
+      { "name": "ManagerAudio", "link": "https://apps-sdk-v3.developer.homey.app/ManagerAudio.html", "access": "this.homey.audio" },
+      { "name": "ManagerBLE", "link": "https://apps-sdk-v3.developer.homey.app/ManagerBLE.html", "access": "this.homey.ble" },
+      { "name": "ManagerClock", "link": "https://apps-sdk-v3.developer.homey.app/ManagerClock.html", "access": "this.homey.clock" },
+      { "name": "ManagerCloud", "link": "https://apps-sdk-v3.developer.homey.app/ManagerCloud.html", "access": "this.homey.cloud" },
+      { "name": "ManagerDiscovery", "link": "https://apps-sdk-v3.developer.homey.app/ManagerDiscovery.html", "access": "this.homey.discovery" },
+      { "name": "ManagerDrivers", "link": "https://apps-sdk-v3.developer.homey.app/ManagerDrivers.html", "access": "this.homey.drivers" },
+      { "name": "ManagerFlow", "link": "https://apps-sdk-v3.developer.homey.app/ManagerFlow.html", "access": "this.homey.flow" },
+      { "name": "ManagerGeolocation", "link": "https://apps-sdk-v3.developer.homey.app/ManagerGeolocation.html", "access": "this.homey.geolocation" },
+      { "name": "ManagerI18n", "link": "https://apps-sdk-v3.developer.homey.app/ManagerI18n.html", "access": "this.homey.i18n" },
+      { "name": "ManagerImages", "link": "https://apps-sdk-v3.developer.homey.app/ManagerImages.html", "access": "this.homey.images" },
+      { "name": "ManagerInsights", "link": "https://apps-sdk-v3.developer.homey.app/ManagerInsights.html", "access": "this.homey.insights" },
+      { "name": "ManagerLedring", "link": "https://apps-sdk-v3.developer.homey.app/ManagerLedring.html", "access": "this.homey.ledring" },
+      { "name": "ManagerNFC", "link": "https://apps-sdk-v3.developer.homey.app/ManagerNFC.html", "access": "this.homey.nfc" },
+      { "name": "ManagerNotifications", "link": "https://apps-sdk-v3.developer.homey.app/ManagerNotifications.html", "access": "this.homey.notifications" },
+      { "name": "ManagerRF", "link": "https://apps-sdk-v3.developer.homey.app/ManagerRF.html", "access": "this.homey.rf" },
+      { "name": "ManagerSettings", "link": "https://apps-sdk-v3.developer.homey.app/ManagerSettings.html", "access": "this.homey.settings" },
+      { "name": "ManagerSpeechOutput", "link": "https://apps-sdk-v3.developer.homey.app/ManagerSpeechOutput.html", "access": "this.homey.speechOutput" },
+      { "name": "ManagerVideos", "link": "https://apps-sdk-v3.developer.homey.app/ManagerVideos.html", "access": "this.homey.videos" },
+      { "name": "ManagerZigBee", "link": "https://apps-sdk-v3.developer.homey.app/ManagerZigBee.html", "access": "this.homey.zigbee" },
+      { "name": "ManagerZwave", "link": "https://apps-sdk-v3.developer.homey.app/ManagerZwave.html", "access": "this.homey.zwave" }
+    ],
+    "classes": {
+      "core": [
+        { "name": "Homey", "link": "https://apps-sdk-v3.developer.homey.app/Homey.html" },
+        { "name": "App", "link": "https://apps-sdk-v3.developer.homey.app/App.html" },
+        { "name": "Driver", "link": "https://apps-sdk-v3.developer.homey.app/Driver.html" },
+        { "name": "Device", "link": "https://apps-sdk-v3.developer.homey.app/Device.html" },
+        { "name": "SimpleClass", "link": "https://apps-sdk-v3.developer.homey.app/SimpleClass.html" }
+      ],
+      "api": [
+        { "name": "Api", "link": "https://apps-sdk-v3.developer.homey.app/Api.html" },
+        { "name": "ApiApp", "link": "https://apps-sdk-v3.developer.homey.app/ApiApp.html" }
+      ],
+      "flow": [
+        { "name": "FlowCard", "link": "https://apps-sdk-v3.developer.homey.app/FlowCard.html" },
+        { "name": "FlowCardAction", "link": "https://apps-sdk-v3.developer.homey.app/FlowCardAction.html" },
+        { "name": "FlowCardCondition", "link": "https://apps-sdk-v3.developer.homey.app/FlowCardCondition.html" },
+        { "name": "FlowCardTrigger", "link": "https://apps-sdk-v3.developer.homey.app/FlowCardTrigger.html" },
+        { "name": "FlowCardTriggerDevice", "link": "https://apps-sdk-v3.developer.homey.app/FlowCardTriggerDevice.html" },
+        { "name": "FlowArgument", "link": "https://apps-sdk-v3.developer.homey.app/FlowArgument.html" },
+        { "name": "FlowToken", "link": "https://apps-sdk-v3.developer.homey.app/FlowToken.html" }
+      ],
+      "ble": [
+        { "name": "BleAdvertisement", "link": "https://apps-sdk-v3.developer.homey.app/BleAdvertisement.html" },
+        { "name": "BlePeripheral", "link": "https://apps-sdk-v3.developer.homey.app/BlePeripheral.html" },
+        { "name": "BleService", "link": "https://apps-sdk-v3.developer.homey.app/BleService.html" },
+        { "name": "BleCharacteristic", "link": "https://apps-sdk-v3.developer.homey.app/BleCharacteristic.html" },
+        { "name": "BleDescriptor", "link": "https://apps-sdk-v3.developer.homey.app/BleDescriptor.html" }
+      ],
+      "discovery": [
+        { "name": "DiscoveryStrategy", "link": "https://apps-sdk-v3.developer.homey.app/DiscoveryStrategy.html" },
+        { "name": "DiscoveryResult", "link": "https://apps-sdk-v3.developer.homey.app/DiscoveryResult.html" },
+        { "name": "DiscoveryResultMDNSSD", "link": "https://apps-sdk-v3.developer.homey.app/DiscoveryResultMDNSSD.html" },
+        { "name": "DiscoveryResultSSDP", "link": "https://apps-sdk-v3.developer.homey.app/DiscoveryResultSSDP.html" },
+        { "name": "DiscoveryResultMAC", "link": "https://apps-sdk-v3.developer.homey.app/DiscoveryResultMAC.html" }
+      ],
+      "cloud": [
+        { "name": "CloudWebhook", "link": "https://apps-sdk-v3.developer.homey.app/CloudWebhook.html" },
+        { "name": "CloudOAuth2Callback", "link": "https://apps-sdk-v3.developer.homey.app/CloudOAuth2Callback.html" }
+      ],
+      "signals": [
+        { "name": "Signal", "link": "https://apps-sdk-v3.developer.homey.app/Signal.html" },
+        { "name": "Signal433", "link": "https://apps-sdk-v3.developer.homey.app/Signal433.html" },
+        { "name": "Signal868", "link": "https://apps-sdk-v3.developer.homey.app/Signal868.html" },
+        { "name": "SignalInfrared", "link": "https://apps-sdk-v3.developer.homey.app/SignalInfrared.html" }
+      ],
+      "media": [
+        { "name": "Image", "link": "https://apps-sdk-v3.developer.homey.app/Image.html" },
+        { "name": "Video", "link": "https://apps-sdk-v3.developer.homey.app/Video.html" },
+        { "name": "VideoDASH", "link": "https://apps-sdk-v3.developer.homey.app/VideoDASH.html" },
+        { "name": "VideoHLS", "link": "https://apps-sdk-v3.developer.homey.app/VideoHLS.html" },
+        { "name": "VideoRTMP", "link": "https://apps-sdk-v3.developer.homey.app/VideoRTMP.html" },
+        { "name": "VideoRTSP", "link": "https://apps-sdk-v3.developer.homey.app/VideoRTSP.html" },
+        { "name": "VideoWebRTC", "link": "https://apps-sdk-v3.developer.homey.app/VideoWebRTC.html" }
+      ],
+      "ledring": [
+        { "name": "LedringAnimation", "link": "https://apps-sdk-v3.developer.homey.app/LedringAnimation.html" },
+        { "name": "LedringAnimationSystem", "link": "https://apps-sdk-v3.developer.homey.app/LedringAnimationSystem.html" },
+        { "name": "LedringAnimationSystemProgress", "link": "https://apps-sdk-v3.developer.homey.app/LedringAnimationSystemProgress.html" }
+      ],
+      "wireless": [
+        { "name": "ZigBeeNode", "link": "https://apps-sdk-v3.developer.homey.app/ZigBeeNode.html" },
+        { "name": "ZwaveNode", "link": "https://apps-sdk-v3.developer.homey.app/ZwaveNode.html" },
+        { "name": "ZwaveCommandClass", "link": "https://apps-sdk-v3.developer.homey.app/ZwaveCommandClass.html" }
+      ],
+      "other": [
+        { "name": "InsightsLog", "link": "https://apps-sdk-v3.developer.homey.app/InsightsLog.html" },
+        { "name": "PairSession", "link": "https://apps-sdk-v3.developer.homey.app/PairSession.html" }
+      ]
+    },
+    "localDoc": "_index/docs/api-reference/index.md"
+  },
+  "upgradeGuides": [
+    {
+      "name": "Upgrading to SDK v3",
+      "link": "https://apps.developer.homey.app/upgrade-guides/upgrading-to-sdk-v3",
+      "localDoc": "_index/docs/upgrade-guides/sdk-v3.md"
+    },
+    {
+      "name": "Node.js 22 Upgrade",
+      "link": "https://apps.developer.homey.app/upgrade-guides/node-js-22-upgrade-guide",
+      "localDoc": "_index/docs/upgrade-guides/nodejs-22.md"
+    }
+  ],
+  "guides": [
+    {
+      "name": "Homey Cloud",
+      "link": "https://apps.developer.homey.app/guides/homey-cloud"
+    },
+    {
+      "name": "Using ESM",
+      "link": "https://apps.developer.homey.app/guides/using-esm-in-homey-apps"
+    },
+    {
+      "name": "Hardware Discount",
+      "link": "https://apps.developer.homey.app/guides/hardware-discount"
+    },
+    {
+      "name": "Breaking Changes",
+      "link": "https://apps.developer.homey.app/guides/breaking-changes"
+    }
+  ]
+}

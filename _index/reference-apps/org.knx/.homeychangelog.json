@@ -1,0 +1,84 @@
+{
+  "1.2.7": {
+    "en": "Fix connection to non-broadcast interfaces after restart. Added support for sending and receiving telegrams directly from flows."
+  },
+  "1.2.6": {
+    "en": "Improved error handling for missing interfaces"
+  },
+  "1.2.5": {
+    "en": "Add support for ethernet on Homey Pro 2023"
+  },
+  "1.2.4": {
+    "en": "Fixed an issue with the 'Trigger scene' Flow card not sending the correct address and scene data."
+  },
+  "1.2.3": {
+    "en": "Updated the support URL."
+  },
+  "1.2.2": {
+    "en": "Fixed an issue with selecting a scene from the device quick-toggle."
+  },
+  "1.2.1": {
+    "en": "Resolved the issue with selecting group addresses when adding new devices."
+  },
+  "1.1.4": {
+    "en": "Resolved stability issues.",
+    "nl": "Stabiliteitsproblemen opgelost."
+  },
+  "1.1.2": {
+    "en": "Improve KNX connection stability.",
+    "nl": "Verbeterde stabiliteit van de KNX verbinding."
+  },
+  "1.1.1": {
+    "en": "Add support for electric power measurement devices.",
+    "nl": "Voegt ondersteuning toe voor elektrische verbruikmeters."
+  },
+  "1.1.0": {
+    "en": "Connection to KNX network improvements and small protocol fixes.",
+    "nl": "Betere verbinding naar het KNX netwerk en vele kleine verbeteringen."
+  },
+  "1.0.15": {
+    "en": "Bugfixes and crash preventions."
+  },
+  "1.0.13": {
+    "en": "Added automatic re-detection of KNX interfaces. This should re-find the used KNX interface if it's IP has changed over time."
+  },
+  "1.0.12": {
+    "en": "Small bugfixes and error handling."
+  },
+  "1.0.11": {
+    "en": "KNX Connection improvements."
+  },
+  "1.3.0": {
+    "en": "Added translations"
+  },
+  "1.3.1": {
+    "en": "Remove stop before up/down for windowcoverings"
+  },
+  "1.3.2": {
+    "en": "Add support for contact, motion, smoke and tamper sensor"
+  },
+  "1.3.3": {
+    "en": "Add humidity sensor"
+  },
+  "1.3.4": {
+    "en": "Solves issue with actuators"
+  },
+  "1.3.5": {
+    "en": "Add humidity sensor"
+  },
+  "1.4.0": {
+    "en": "Add HVAC options to thermostat and multiple other small features"
+  },
+  "1.4.1": {
+    "en": "Fixes in DPT parsing"
+  },
+  "1.4.2": {
+    "en": "Fixed issues causing app to crash"
+  },
+  "1.4.3": {
+    "en": "Resolved an issue with parsing data for electric metering device"
+  },
+  "1.5.0": {
+    "en": "Add Arabic language support"
+  }
+}

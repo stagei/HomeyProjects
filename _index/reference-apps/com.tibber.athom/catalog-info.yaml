@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: homey-app
+  description: The Tibber app for Homey
+  annotations:
+    github.com/project-slug: tibber/com.tibber.athom
+    circleci.com/project-slug: gh/tibber/com.tibber.athom
+  tags:
+  - typescript
+spec:
+  type: app
+  lifecycle: production
+  consumesApis:
+  - tibber-api-api

@@ -1,0 +1,26 @@
+{
+  "id": "close_app",
+  "title": {
+    "en": "Close app"
+  },
+  "titleFormatted": {
+    "en": "Close app [[app_id]]"
+  },
+  "hint": {
+    "en": "Use this action to close a running app."
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=Samsung|SamsungEncrypted"
+    },
+    {
+      "name": "app_id",
+      "type": "autocomplete",
+      "placeholder": {
+        "en": "Search for app..."
+      }
+    }
+  ]
+}

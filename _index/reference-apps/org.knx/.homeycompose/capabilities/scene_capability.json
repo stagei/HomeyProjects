@@ -1,0 +1,22 @@
+{
+  "title": {
+    "en": "Scene",
+    "nl": "Scene",
+    "da": "Scene",
+    "de": "Szene",
+    "es": "Escena",
+    "fr": "Scène",
+    "it": "Scena",
+    "no": "Scene",
+    "sv": "Scen",
+    "pl": "Scena",
+    "ru": "Сцена",
+    "ko": "장면",
+    "ar": "مشهد"
+  },
+  "type": "boolean",
+  "getable": false,
+  "setable": true,
+  "uiComponent": "button",
+  "uiQuickAction": true
+}

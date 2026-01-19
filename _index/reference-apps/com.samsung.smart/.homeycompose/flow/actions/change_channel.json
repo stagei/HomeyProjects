@@ -1,0 +1,26 @@
+{
+  "id": "change_channel",
+  "title": {
+    "en": "Change channel"
+  },
+  "titleFormatted": {
+    "en": "Change channel to [[channel]]"
+  },
+  "args": [
+    {
+      "type": "device",
+      "name": "device",
+      "filter": "driver_id=Samsung|SamsungEncrypted|SamsungLegacy"
+    },
+    {
+      "name": "channel",
+      "type": "number",
+      "min": 1,
+      "max": 9999,
+      "step": 1,
+      "title": {
+        "en": "Channel"
+      }
+    }
+  ]
+}
