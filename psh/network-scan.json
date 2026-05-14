@@ -1,0 +1,413 @@
+{
+  "Devices": [
+    {
+      "WebServer": [
+        "httpd/2.0"
+      ],
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.1",
+      "HomeyInfo": null,
+      "Type": "ASUS Router",
+      "WebTitle": "",
+      "Hostname": "RT-AX92U-5960.local",
+      "MAC": "04-D9-F5-9B-59-60"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.17",
+      "HomeyInfo": null,
+      "Type": "Google Chromecast",
+      "WebTitle": null,
+      "Hostname": "Chromecast",
+      "MAC": "F0-EF-86-38-B6-9C"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.32",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Kjellerstue.local",
+      "MAC": "8C-26-AA-DE-B3-7B"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.34",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "30237-FK.local",
+      "MAC": "DC-97-BA-E1-0F-BE"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.35",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Unknown",
+      "MAC": "50-8A-06-15-6A-D5"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.36",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "SoveromneOgGeir",
+      "MAC": "C0-95-6D-7D-5E-03"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.41",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Stua-Nede-9676.local",
+      "MAC": "F0-B3-EC-17-8A-D4"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.42",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "LT420487",
+      "MAC": "7C-70-DB-8D-24-A3"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.44",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Stue-Oppe.local",
+      "MAC": "48-E1-5C-AF-DB-3F"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.48",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Unknown",
+      "MAC": "BC-45-5B-CD-D9-EA"
+    },
+    {
+      "WebServer": [
+        "httpd/2.0"
+      ],
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.50",
+      "HomeyInfo": null,
+      "Type": "ASUS Router/AP",
+      "WebTitle": "",
+      "Hostname": "Unknown",
+      "MAC": "04-D9-F5-9B-45-20"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.84",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": "",
+      "Hostname": "Unknown",
+      "MAC": "24-CD-8D-8B-55-C4"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.88",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Adax-WiFi-Heater-2",
+      "MAC": "98-F4-AB-28-29-F4"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.89",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Unknown",
+      "MAC": "E8-AA-CB-17-41-1C"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.102",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "iPad",
+      "MAC": "52-2F-6E-A2-71-1F"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        443
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.106",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Unknown",
+      "MAC": "14-EA-63-12-46-22"
+    },
+    {
+      "WebServer": [
+        "httpd/2.0"
+      ],
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.113",
+      "HomeyInfo": null,
+      "Type": "ASUS Router/AP",
+      "WebTitle": "",
+      "Hostname": "Unknown",
+      "MAC": "04-D9-F5-9B-3A-80"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.119",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "VFI-275-382-561",
+      "MAC": "A4-60-11-1B-6E-A9"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        80,
+        443
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.120",
+      "HomeyInfo": null,
+      "Type": "Athom Homey",
+      "WebTitle": "My Homey",
+      "Hostname": "homey-657c418d115d9631cbd4fde0.local",
+      "MAC": "90-13-DA-AB-33-BA"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.139",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Unknown",
+      "MAC": "F4-DD-06-13-63-CC"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.151",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": "",
+      "Hostname": "Client",
+      "MAC": "D0-17-69-77-11-95"
+    },
+    {
+      "WebServer": [
+        "nginx"
+      ],
+      "OpenPorts": [
+        80,
+        443
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.155",
+      "HomeyInfo": null,
+      "Type": "Philips Hue Bridge",
+      "WebTitle": "hue personal wireless lighting",
+      "Hostname": "ecb5fa8a87e2.local",
+      "MAC": "EC-B5-FA-8A-87-E2"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.166",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Pulse11aeb43240",
+      "MAC": "4C-11-AE-B4-32-40"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.171",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "dreame_vacuum_r2394s",
+      "MAC": "70-C9-32-44-D2-B4"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.175",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Watch",
+      "MAC": "22-29-5F-36-A4-31"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.179",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Samsung.local",
+      "MAC": "F0-70-4F-83-EF-B3"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        443
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.198",
+      "HomeyInfo": null,
+      "Type": "Audio Streaming Device",
+      "WebTitle": null,
+      "Hostname": "audiocast",
+      "MAC": "14-EA-63-12-54-82"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.204",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Aqara-Hub-M3-547A.local",
+      "MAC": "54-EF-44-71-54-7A"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.215",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": "",
+      "Hostname": "Unknown",
+      "MAC": "74-7A-90-B8-11-9D"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.224",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Doorbell",
+      "MAC": "54-EF-44-4C-2B-83"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        443
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.237",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "Unknown",
+      "MAC": "14-EA-63-2E-A6-91"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [],
+      "IsHomey": false,
+      "IP": "192.168.51.245",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": null,
+      "Hostname": "cu2-2785SUAS",
+      "MAC": "58-B5-68-55-71-E9"
+    },
+    {
+      "WebServer": null,
+      "OpenPorts": [
+        80
+      ],
+      "IsHomey": false,
+      "IP": "192.168.51.252",
+      "HomeyInfo": null,
+      "Type": null,
+      "WebTitle": "",
+      "Hostname": "Unknown",
+      "MAC": "50-26-EF-A9-D3-52"
+    }
+  ],
+  "Network": {
+    "Adapter": "Ethernet",
+    "LocalIP": "192.168.51.60",
+    "Range": "192.168.51.0/24",
+    "Gateway": "192.168.51.1"
+  },
+  "HomeyDevices": [],
+  "IdentifiedCount": 7,
+  "DeviceCount": 33,
+  "ScanTime": "2026-01-19T11:54:04.1061001+01:00"
+}

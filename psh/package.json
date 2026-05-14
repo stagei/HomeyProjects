@@ -1,0 +1,14 @@
+{
+  "name": "homey-export",
+  "version": "1.0.0",
+  "description": "Export Homey devices, flows, and configuration",
+  "type": "module",
+  "scripts": {
+    "export": "node export-homey.js",
+    "export:cloud": "node export-homey.js --cloud",
+    "export:local": "node export-homey.js --local"
+  },
+  "dependencies": {
+    "homey-api": "^1.0.0"
+  }
+}
